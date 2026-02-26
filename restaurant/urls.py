@@ -3,4 +3,6 @@ from . import views
 
 app_name = 'restaurant'
 
-urlpatterns = []
+urlpatterns = [
+    path('', views.menu, name='menu'),
+]
