@@ -1,0 +1,988 @@
+/* ============================================================
+   home.css — Homepage specific styles
+   Hotel Santa Filomena
+   ============================================================ */
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1920&q=85');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06);
+  animation: heroZoom 12s ease-out forwards;
+  will-change: transform;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 22, 18, 0.50) 0%,
+    rgba(26, 22, 18, 0.35) 45%,
+    rgba(26, 22, 18, 0.72) 100%
+  );
+}
+
+.hero__noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.00); }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  padding: 0 2rem;
+  animation: heroFadeUp 1.4s 0.2s both;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  font-weight: 300;
+  color: var(--warm-white);
+  line-height: 1.0;
+  margin-bottom: 1.8rem;
+  letter-spacing: -0.01em;
+}
+
+.hero__title em {
+  font-style: italic;
+  color: var(--gold-light);
+  display: block;
+}
+
+.hero__subtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-bottom: 3.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+}
+
+.hero__cta {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: heroFadeUp 1.4s 0.5s both;
+}
+
+/* Scroll indicator */
+.hero__scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.62rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.15); }
+}
+
+/* Award badges floating on hero */
+.hero__badges {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: heroFadeUp 1.4s 0.8s both;
+}
+
+.hero__badge {
+  background: rgba(26, 22, 18, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero__badge-icon {
+  font-size: 1.3rem;
+}
+
+.hero__badge-text {
+  font-size: 0.7rem;
+  color: var(--warm-white);
+  line-height: 1.4;
+}
+
+.hero__badge-text strong {
+  display: block;
+  color: var(--gold);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────
+   QUICK BOOKING BAR
+───────────────────────────────────────── */
+.booking-bar {
+  background: var(--dark);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+  z-index: 10;
+}
+
+.booking-bar__inner {
+  display: flex;
+  align-items: stretch;
+}
+
+.booking-bar__field {
+  flex: 1;
+  padding: 1.6rem 2rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: background var(--transition-fast);
+}
+
+.booking-bar__field:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.booking-bar__label {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-family: var(--font-body);
+}
+
+.booking-bar__field input,
+.booking-bar__field select {
+  background: transparent;
+  border: none;
+  color: var(--warm-white);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 300;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.booking-bar__field input::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+.booking-bar__field select option {
+  background: var(--charcoal);
+  color: var(--warm-white);
+}
+
+.booking-bar__action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.booking-bar__action .btn {
+  border-radius: 0;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  padding: 0 3rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+}
+
+/* ─────────────────────────────────────────
+   ABOUT / HERITAGE STRIP
+───────────────────────────────────────── */
+.heritage {
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.heritage__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 620px;
+}
+
+.heritage__images {
+  position: relative;
+  overflow: hidden;
+}
+
+.heritage__img-main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.heritage__images:hover .heritage__img-main {
+  transform: scale(1.04);
+}
+
+.heritage__img-accent {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  width: 220px;
+  height: 170px;
+  object-fit: cover;
+  border: 8px solid var(--cream);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-normal);
+}
+
+.heritage__images:hover .heritage__img-accent {
+  transform: translate(-4px, -4px);
+}
+
+.heritage__year-badge {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.5rem;
+  background: var(--dark);
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+}
+
+.heritage__year-badge .year {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+}
+
+.heritage__year-badge .label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.heritage__text {
+  padding: 6rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heritage__text h2 {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  color: var(--dark);
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.heritage__text p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+}
+
+.heritage__stats {
+  display: flex;
+  gap: 3rem;
+  margin: 2.5rem 0 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.heritage__stat-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--dark);
+  line-height: 1;
+  display: block;
+}
+
+.heritage__stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.4rem;
+}
+
+/* ─────────────────────────────────────────
+   FEATURED ROOMS
+───────────────────────────────────────── */
+.rooms-section {
+  background: var(--warm-white);
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 4rem;
+}
+
+.room-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--dark);
+  cursor: pointer;
+}
+
+.room-card__img-wrap {
+  height: 420px;
+  overflow: hidden;
+}
+
+.room-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+  filter: brightness(0.8);
+}
+
+.room-card:hover .room-card__img {
+  transform: scale(1.08);
+  filter: brightness(0.65);
+}
+
+.room-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(26, 22, 18, 0.95) 0%,
+    rgba(26, 22, 18, 0.3) 50%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  transition: background var(--transition-normal);
+}
+
+.room-card:hover .room-card__overlay {
+  background: linear-gradient(
+    to top,
+    rgba(26, 22, 18, 0.98) 0%,
+    rgba(26, 22, 18, 0.6) 60%,
+    rgba(26, 22, 18, 0.2) 100%
+  );
+}
+
+.room-card__type {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-family: var(--font-body);
+  margin-bottom: 0.5rem;
+}
+
+.room-card__name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--warm-white);
+  margin-bottom: 0.5rem;
+}
+
+.room-card__desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal), opacity var(--transition-normal);
+  opacity: 0;
+}
+
+.room-card:hover .room-card__desc {
+  max-height: 80px;
+  opacity: 1;
+}
+
+.room-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.room-card__price {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--warm-white);
+  line-height: 1;
+}
+
+.room-card__price span {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.05em;
+  margin-left: 0.3rem;
+}
+
+.room-card__book {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-family: var(--font-body);
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(201,169,110,0.45);
+  transition: all var(--transition-fast);
+}
+
+.room-card__book:hover {
+  background: var(--gold);
+  color: var(--dark);
+  border-color: var(--gold);
+}
+
+/* ─────────────────────────────────────────
+   EXPERIENCE STRIP (full-width image)
+───────────────────────────────────────── */
+.experience-strip {
+  position: relative;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.experience-strip__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe2fa?w=1920&q=85');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.experience-strip__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 22, 18, 0.72);
+}
+
+.experience-strip__content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  padding: 0 2.5rem;
+  margin-left: 10vw;
+}
+
+.experience-strip__content h2 {
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  color: var(--warm-white);
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.experience-strip__content p {
+  color: rgba(255,255,255,0.65);
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+}
+
+/* ─────────────────────────────────────────
+   RESTAURANT SECTION
+───────────────────────────────────────── */
+.restaurant-section {
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.restaurant-section__bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 22vw;
+  font-weight: 600;
+  color: rgba(255,255,255,0.015);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+}
+
+.restaurant-section .section-header h2 {
+  color: var(--warm-white);
+}
+
+.restaurant-section .section-header p {
+  color: rgba(255,255,255,0.5);
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.restaurant-grid--right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.food-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.food-card--tall {
+  grid-row: span 2;
+}
+
+.food-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.food-card:not(.food-card--tall) .food-card__img {
+  height: 260px;
+}
+
+.food-card--tall .food-card__img {
+  height: 100%;
+  min-height: 540px;
+}
+
+.food-card:hover .food-card__img {
+  transform: scale(1.07);
+}
+
+.food-card__info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.8rem 1.8rem;
+  background: linear-gradient(to top, rgba(26,22,18,0.92), transparent);
+  transform: translateY(8px);
+  transition: transform var(--transition-normal);
+}
+
+.food-card:hover .food-card__info {
+  transform: translateY(0);
+}
+
+.food-card__name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--warm-white);
+  margin-bottom: 0.3rem;
+}
+
+.food-card__detail {
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.restaurant-cta {
+  text-align: center;
+  padding-top: 2rem;
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────
+   AMENITIES
+───────────────────────────────────────── */
+.amenities-section {
+  background: var(--cream);
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.amenity-card {
+  background: var(--cream);
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: background var(--transition-fast), transform var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.amenity-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.amenity-card:hover {
+  background: var(--warm-white);
+}
+
+.amenity-card:hover::before {
+  transform: scaleX(1);
+}
+
+.amenity-card__icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 1.2rem;
+  transition: transform var(--transition-normal);
+}
+
+.amenity-card:hover .amenity-card__icon {
+  transform: scale(1.12) translateY(-3px);
+}
+
+.amenity-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--dark);
+  margin-bottom: 0.6rem;
+}
+
+.amenity-card p {
+  color: var(--text-muted);
+  font-size: 0.83rem;
+  line-height: 1.7;
+}
+
+/* ─────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────── */
+.testimonials-section {
+  background: var(--dark);
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonials-section::before {
+  content: '\201C';
+  position: absolute;
+  top: -3rem;
+  left: 5%;
+  font-family: var(--font-display);
+  font-size: 30rem;
+  color: rgba(201, 169, 110, 0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.testimonial-card {
+  padding: 3rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  transition: border-color var(--transition-fast), transform var(--transition-normal);
+}
+
+.testimonial-card:hover {
+  border-color: var(--border);
+  transform: translateY(-6px);
+}
+
+.testimonial-card__stars {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card__stars span {
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+
+.testimonial-card blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.testimonial-card__avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.testimonial-card__name {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--warm-white);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.testimonial-card__location {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────
+   INSTAGRAM / GALLERY STRIP
+───────────────────────────────────────── */
+.gallery-strip {
+  background: var(--warm-white);
+  padding: 0;
+}
+
+.gallery-strip__header {
+  padding: 5rem 0 3rem;
+  text-align: center;
+}
+
+.gallery-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+}
+
+.gallery-strip__item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.gallery-strip__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+  filter: brightness(0.9);
+}
+
+.gallery-strip__item:hover img {
+  transform: scale(1.08);
+  filter: brightness(0.7);
+}
+
+.gallery-strip__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  background: rgba(26,22,18,0.4);
+}
+
+.gallery-strip__item:hover .gallery-strip__overlay {
+  opacity: 1;
+}
+
+.gallery-strip__overlay span {
+  font-size: 1.5rem;
+  color: var(--warm-white);
+}
+
+/* ─────────────────────────────────────────
+   FINAL CTA
+───────────────────────────────────────── */
+.cta-section {
+  position: relative;
+  text-align: center;
+  padding: 10rem 0;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.cta-section__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1920&q=85');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.12;
+}
+
+.cta-section__content {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section h2 {
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  color: var(--dark);
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.cta-section p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 3.5rem;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-section__buttons {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ─────────────────────────────────────────
+   HOMEPAGE RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .rooms-grid         { grid-template-columns: 1fr 1fr; }
+  .amenities-grid     { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid  { grid-template-columns: 1fr 1fr; }
+  .gallery-strip__grid{ grid-template-columns: repeat(3, 1fr); }
+  .heritage__text     { padding: 4rem 3rem; }
+}
+
+@media (max-width: 768px) {
+  .hero__badges         { display: none; }
+  .hero__title          { font-size: clamp(3rem, 10vw, 5rem); }
+  .heritage__grid       { grid-template-columns: 1fr; }
+  .heritage__images     { height: 380px; }
+  .heritage__img-accent { display: none; }
+  .heritage__year-badge { display: none; }
+  .heritage__text       { padding: 3rem 2rem; }
+  .heritage__stats      { gap: 2rem; }
+  .rooms-grid           { grid-template-columns: 1fr; }
+  .room-card__img-wrap  { height: 320px; }
+  .room-card__desc      { display: none; }
+  .restaurant-grid      { grid-template-columns: 1fr; }
+  .food-card--tall .food-card__img { min-height: 320px; }
+  .testimonials-grid    { grid-template-columns: 1fr; }
+  .gallery-strip__grid  { grid-template-columns: repeat(3, 1fr); }
+  .booking-bar__inner   { flex-direction: column; }
+  .booking-bar__field   { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .booking-bar__action  { width: 100%; }
+  .booking-bar__action .btn { width: 100%; justify-content: center; }
+  .experience-strip__content { margin-left: 0; padding: 0 2rem; }
+}
+
+@media (max-width: 480px) {
+  .amenities-grid     { grid-template-columns: 1fr; }
+  .gallery-strip__grid{ grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid  { grid-template-columns: 1fr; }
+  .hero__cta          { flex-direction: column; align-items: center; }
+}

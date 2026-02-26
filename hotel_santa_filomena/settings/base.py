@@ -1,8 +1,30 @@
 from pathlib import Path
 from decouple import config
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+# Default language is Italian
+LANGUAGE_CODE = 'it'
+
+TIME_ZONE = 'Europe/Rome'
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+# Supported languages
+LANGUAGES = [
+    ('it', _('Italian')),
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('de', _('German')),
+    ('es', _('Spanish')),
+]
+# Where translation files live
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 SECRET_KEY = config('SECRET_KEY')
 
 INSTALLED_APPS = [
@@ -27,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
