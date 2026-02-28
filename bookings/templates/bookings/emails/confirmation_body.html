@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body        { font-family: 'Georgia', serif; background: #FAF7F2; color: #1A1612; margin: 0; padding: 0; }
+    .wrapper    { max-width: 600px; margin: 0 auto; background: #FFFEF9; }
+    .header     { background: #1A1612; padding: 2.5rem; text-align: center; }
+    .header h1  { font-family: Georgia, serif; color: #C9A96E; font-size: 1.8rem; font-weight: 300; margin: 0; letter-spacing: 0.05em; }
+    .header p   { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; margin: 0.5rem 0 0; }
+    .body       { padding: 2.5rem; }
+    .body h2    { font-family: Georgia, serif; font-size: 1.4rem; font-weight: 300; color: #1A1612; margin-bottom: 1rem; }
+    .body p     { font-size: 0.95rem; line-height: 1.8; color: #8A7F74; margin-bottom: 1rem; }
+    .details    { background: #FAF7F2; border: 1px solid rgba(201,169,110,0.25); padding: 1.5rem 2rem; margin: 2rem 0; }
+    .details h3 { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: #C9A96E; margin: 0 0 1.2rem; }
+    .row        { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(201,169,110,0.12); font-size: 0.9rem; }
+    .row:last-child { border-bottom: none; }
+    .row .label { color: #8A7F74; }
+    .row .value { color: #1A1612; font-weight: 400; }
+    .total-row  { background: #1A1612; margin: 0 -2rem -1.5rem; padding: 1rem 2rem; display: flex; justify-content: space-between; }
+    .total-row .label { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+    .total-row .value { color: #C9A96E; font-family: Georgia, serif; font-size: 1.3rem; }
+    .ref-badge  { background: #1A1612; color: #C9A96E; text-align: center; padding: 1rem; font-size: 0.75rem; letter-spacing: 0.2em; margin-bottom: 2rem; }
+    .footer     { background: #1A1612; padding: 2rem; text-align: center; }
+    .footer p   { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin: 0.3rem 0; }
+    .footer a   { color: #C9A96E; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Santa<span style="color:#C9A96E;">.</span>Filomena</h1>
+      <p>Conferma di Prenotazione</p>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+      <h2>Gentile {{ guest_name }},</h2>
+      <p>La sua prenotazione è stata confermata con successo. Di seguito troverà tutti i dettagli del suo soggiorno.</p>
+
+      <!-- Reference badge -->
+      <div class="ref-badge">
+        NUMERO DI RIFERIMENTO: <strong>{{ reference }}</strong>
+      </div>
+
+      <!-- Booking details -->
+      <div class="details">
+        <h3>Dettagli Prenotazione</h3>
+        <div class="row">
+          <span class="label">Camera</span>
+          <span class="value">{{ room_name }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Check-in</span>
+          <span class="value">{{ check_in }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Check-out</span>
+          <span class="value">{{ check_out }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Notti</span>
+          <span class="value">{{ nights }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Ospiti</span>
+          <span class="value">{{ guests }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Prezzo per notte</span>
+          <span class="value">€{{ price_per_night }}</span>
+        </div>
+        {% if special_requests %}
+          <div class="row">
+            <span class="label">Richieste speciali</span>
+            <span class="value">{{ special_requests }}</span>
+          </div>
+        {% endif %}
+        <div class="total-row">
+          <span class="label">Totale</span>
+          <span class="value">€{{ total_price }}</span>
+        </div>
+      </div>
+
+      <p style="font-size:0.85rem;">
+        Per qualsiasi informazione o modifica, contattaci a
+        <a href="mailto:info@santafilomena.com" style="color:#C9A96E;">info@santafilomena.com</a>
+        oppure al <strong>+39 06 1234 5678</strong>.
+      </p>
+      <p style="font-size:0.85rem; color:#1A1612;">
+        Non vediamo l'ora di accoglierla!
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Hotel Santa Filomena</p>
+      <p>Via Santa Filomena, 12 — Roma, Italia 00184</p>
+      <p><a href="mailto:info@santafilomena.com">info@santafilomena.com</a> · +39 06 1234 5678</p>
+    </div>
+
+  </div>
+</body>
+</html>

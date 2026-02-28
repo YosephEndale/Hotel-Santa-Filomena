@@ -1,7 +1,235 @@
 {% extends 'base.html' %}
-{% block title %}Book a Room{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "Book a Room" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/bookings.css' %}" />
+{% endblock %}
+
 {% block content %}
-<div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-  <h1 style="font-family:'Cormorant Garamond',serif; font-size:3rem;">Book a Room — Coming Soon</h1>
+
+<!-- Page Header -->
+<div class="bookings-page-header">
+  <div class="bookings-page-header__bg"></div>
+  <div class="bookings-page-header__overlay"></div>
+  <div class="bookings-page-header__content container">
+    <span class="section-label">{% trans "Reservations" %}</span>
+    <div class="gold-divider left"></div>
+    <h1>{% trans "Book a Room" %}</h1>
+    <p>{% trans "Complete your reservation below. We'll confirm your booking by email." %}</p>
+  </div>
 </div>
+
+<!-- Booking Page -->
+<div class="booking-page">
+  <div class="container">
+
+    {% if not room %}
+      <!-- No room selected — show room picker -->
+      <div style="max-width:600px; margin:0 auto; text-align:center; padding: 4rem 0;">
+        <span class="section-label">{% trans "Choose a Room" %}</span>
+        <div class="gold-divider"></div>
+        <h2 style="font-family:var(--font-display); font-size:2rem; margin-bottom:2rem;">
+          {% trans "Select a room to continue" %}
+        </h2>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          {% for r in available_rooms %}
+            <a href="{% url 'bookings:book_room' %}?room={{ r.id }}"
+               style="display:flex; justify-content:space-between; align-items:center;
+                      padding:1.2rem 1.5rem; border:1px solid var(--border);
+                      background:var(--cream); text-decoration:none;
+                      transition:border-color 0.3s;">
+              <div style="text-align:left;">
+                <div style="font-family:var(--font-display); font-size:1.2rem; color:var(--dark);">
+                  {{ r.name }}
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem;">
+                  {{ r.get_room_type_display }} · {{ r.capacity }} {% trans "guests" %}
+                </div>
+              </div>
+              <div style="font-family:var(--font-display); font-size:1.4rem; color:var(--gold);">
+                €{{ r.price_per_night }}
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+    {% else %}
+
+      <div class="booking-page__layout">
+
+        <!-- LEFT — Form -->
+        <div class="booking-form-section">
+          <span class="section-label">{% trans "Your Details" %}</span>
+          <div class="gold-divider left"></div>
+          <h2>{% trans "Complete Your Reservation" %}</h2>
+
+          <!-- Form errors -->
+          {% if form.non_field_errors %}
+            <div class="booking-form__errors-top">
+              {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <form method="POST" action="{% url 'bookings:book_room' %}">
+            {% csrf_token %}
+            <input type="hidden" name="room" value="{{ room.id }}" />
+
+            <div class="booking-form__grid">
+
+              <!-- Full Name -->
+              <div class="booking-form__field booking-form__field--full">
+                <label class="booking-form__label" for="{{ form.guest_name.id_for_label }}">
+                  {% trans "Full Name" %} *
+                </label>
+                {{ form.guest_name }}
+                {% if form.guest_name.errors %}
+                  <span class="booking-form__error">{{ form.guest_name.errors.0 }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Email -->
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="{{ form.guest_email.id_for_label }}">
+                  {% trans "Email Address" %} *
+                </label>
+                {{ form.guest_email }}
+                {% if form.guest_email.errors %}
+                  <span class="booking-form__error">{{ form.guest_email.errors.0 }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Phone -->
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="{{ form.guest_phone.id_for_label }}">
+                  {% trans "Phone Number" %} *
+                </label>
+                {{ form.guest_phone }}
+                {% if form.guest_phone.errors %}
+                  <span class="booking-form__error">{{ form.guest_phone.errors.0 }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Check-in -->
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="{{ form.check_in.id_for_label }}">
+                  {% trans "Check-in Date" %} *
+                </label>
+                {{ form.check_in }}
+                {% if form.check_in.errors %}
+                  <span class="booking-form__error">{{ form.check_in.errors.0 }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Check-out -->
+              <div class="booking-form__field">
+                <label class="booking-form__label" for="{{ form.check_out.id_for_label }}">
+                  {% trans "Check-out Date" %} *
+                </label>
+                {{ form.check_out }}
+                {% if form.check_out.errors %}
+                  <span class="booking-form__error">{{ form.check_out.errors.0 }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Guests -->
+              <div class="booking-form__field booking-form__field--full">
+                <label class="booking-form__label" for="{{ form.guests.id_for_label }}">
+                  {% trans "Number of Guests" %} *
+                </label>
+                {{ form.guests }}
+                {% if form.guests.errors %}
+                  <span class="booking-form__error">{{ form.guests.errors.0 }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Special Requests -->
+              <div class="booking-form__field booking-form__field--full">
+                <label class="booking-form__label" for="{{ form.special_requests.id_for_label }}">
+                  {% trans "Special Requests" %}
+                </label>
+                {{ form.special_requests }}
+              </div>
+
+            </div>
+
+            <div class="booking-form__submit-row">
+              <button type="submit" class="btn btn-gold booking-form__submit">
+                {% trans "Confirm Booking" %}
+              </button>
+              <p class="booking-form__terms">
+                {% trans "By confirming, you agree to our cancellation policy. Free cancellation up to 48 hours before check-in." %}
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- RIGHT — Summary -->
+        <div class="booking-summary">
+          {% with img=room.get_main_image %}
+            {% if img %}
+              <img class="booking-summary__img" src="{{ img.image.url }}" alt="{{ room.name }}" />
+            {% else %}
+              <img class="booking-summary__img"
+                src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80"
+                alt="{{ room.name }}" />
+            {% endif %}
+          {% endwith %}
+
+          <div class="booking-summary__body">
+            <span class="booking-summary__type">{{ room.get_room_type_display }}</span>
+            <div class="booking-summary__name">{{ room.name }}</div>
+
+            <!-- Room meta -->
+            <div class="booking-summary__row">
+              <span>👤 {% trans "Capacity" %}</span>
+              <strong>{{ room.capacity }} {% trans "guests" %}</strong>
+            </div>
+            {% if room.size_sqm %}
+              <div class="booking-summary__row">
+                <span>📐 {% trans "Room Size" %}</span>
+                <strong>{{ room.size_sqm }} m²</strong>
+              </div>
+            {% endif %}
+
+            <div class="booking-summary__divider"></div>
+
+            <!-- Price meta passed to JS -->
+            <div id="roomPriceMeta" data-price="{{ room.price_per_night }}"></div>
+
+            <div class="booking-summary__row">
+              <span>{% trans "Price per night" %}</span>
+              <strong>€{{ room.price_per_night }}</strong>
+            </div>
+            <div class="booking-summary__row">
+              <span>{% trans "Guests" %}</span>
+              <strong id="summaryGuests">—</strong>
+            </div>
+            <div class="booking-summary__row">
+              <span>{% trans "Nights" %}</span>
+              <strong id="summaryNights">—</strong>
+            </div>
+
+            <div class="booking-summary__total">
+              <span class="booking-summary__total-label">{% trans "Total" %}</span>
+              <span class="booking-summary__total-price" id="summaryTotal">—</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/pages/bookings.js' %}"></script>
 {% endblock %}

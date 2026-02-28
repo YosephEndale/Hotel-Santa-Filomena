@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{% trans "Booking Confirmed" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/bookings.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="confirmation-page">
+  <div class="container">
+
+    <span class="confirmation-page__icon">✅</span>
+    <h1>{% trans "Your Booking is Confirmed!" %}</h1>
+    <p class="confirmation-page__subtitle">
+      {% blocktrans with email=booking.guest_email %}
+        A confirmation email has been sent to {{ email }}.
+        We look forward to welcoming you to Hotel Santa Filomena.
+      {% endblocktrans %}
+    </p>
+
+    <div class="confirmation-ref">
+      {% trans "Booking Reference" %}: {{ booking.reference }}
+    </div>
+
+    <!-- Booking details -->
+    <div class="confirmation-details">
+      <div class="confirmation-details__header">
+        <h3>{% trans "Booking Details" %}</h3>
+      </div>
+      <div class="confirmation-details__body">
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Room" %}</span>
+          <span class="value">{{ booking.room.name }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Guest" %}</span>
+          <span class="value">{{ booking.guest_name }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Check-in" %}</span>
+          <span class="value">{{ booking.check_in }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Check-out" %}</span>
+          <span class="value">{{ booking.check_out }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Nights" %}</span>
+          <span class="value">{{ booking.nights }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Guests" %}</span>
+          <span class="value">{{ booking.guests }}</span>
+        </div>
+        {% if booking.special_requests %}
+          <div class="confirmation-details__row">
+            <span class="label">{% trans "Special Requests" %}</span>
+            <span class="value">{{ booking.special_requests }}</span>
+          </div>
+        {% endif %}
+        <div class="confirmation-details__row total">
+          <span class="label">{% trans "Total" %}</span>
+          <span class="value">€{{ booking.total_price }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirmation-page__actions">
+      <a href="{% url 'core:home' %}" class="btn btn-dark">{% trans "Back to Home" %}</a>
+      <a href="{% url 'rooms:room_list' %}" class="btn btn-outline-dark">{% trans "View More Rooms" %}</a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

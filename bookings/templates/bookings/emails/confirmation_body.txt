@@ -1,0 +1,28 @@
+Gentile {{ guest_name }},
+
+La sua prenotazione è stata confermata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DETTAGLI PRENOTAZIONE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Numero di riferimento : {{ reference }}
+Camera                : {{ room_name }}
+Check-in              : {{ check_in }}
+Check-out             : {{ check_out }}
+Notti                 : {{ nights }}
+Ospiti                : {{ guests }}
+Prezzo per notte      : €{{ price_per_night }}
+Totale                : €{{ total_price }}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{% if special_requests %}Richieste speciali: {{ special_requests }}{% endif %}
+
+Per qualsiasi informazione non esiti a contattarci:
+Email : info@santafilomena.com
+Tel   : +39 06 1234 5678
+
+Grazie per aver scelto Hotel Santa Filomena.
+Ci vediamo presto!
+
+— Il Team di Hotel Santa Filomena
+Via Santa Filomena, 12 — Roma, Italia
