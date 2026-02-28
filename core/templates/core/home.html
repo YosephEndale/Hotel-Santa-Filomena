@@ -163,82 +163,48 @@
 <!-- ═══════════════════════════════════════
      FEATURED ROOMS
 ═══════════════════════════════════════ -->
-<section class="rooms-section" id="rooms">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-label">{% trans "Accommodations" %}</span>
-      <div class="gold-divider"></div>
-      <h2>{% trans "Rooms & Suites" %}</h2>
-      <p>{% trans "Each of our 48 rooms is a sanctuary — designed for rest, romance, and inspiration." %}</p>
-    </div>
-
-    <div class="rooms-grid">
-
-      <div class="room-card reveal reveal-delay-1">
-        <div class="room-card__img-wrap">
-          <img class="room-card__img"
-            src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=85"
-            alt="{% trans "Deluxe Room" %}" />
-        </div>
-        <div class="room-card__overlay">
-          <span class="room-card__type">{% trans "Deluxe" %}</span>
-          <h3 class="room-card__name">{% trans "Deluxe Room" %}</h3>
-          <p class="room-card__desc">
-            {% trans "Spacious and refined, featuring a king-size bed, marble bathroom, and private balcony with city views." %}
-          </p>
-          <div class="room-card__footer">
-            <div class="room-card__price">€180 <span>{% trans "/ night" %}</span></div>
-            <a href="{% url 'bookings:book_room' %}" class="room-card__book">{% trans "Book Now" %}</a>
-          </div>
+<div class="rooms-grid">
+  {% for room in featured_rooms %}
+    <div class="room-card reveal reveal-delay-{{ forloop.counter }}">
+      <div class="room-card__img-wrap">
+        {% with main_image=room.get_main_image %}
+          {% if main_image %}
+            <img class="room-card__img" src="{{ main_image.image.url }}" alt="{{ room.name }}" />
+          {% else %}
+            <img class="room-card__img"
+              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=85"
+              alt="{{ room.name }}" />
+          {% endif %}
+        {% endwith %}
+      </div>
+      <div class="room-card__overlay">
+        <span class="room-card__type">{{ room.get_room_type_display }}</span>
+        <h3 class="room-card__name">{{ room.name }}</h3>
+        <p class="room-card__desc">{{ room.description|truncatewords:20 }}</p>
+        <div class="room-card__footer">
+          <div class="room-card__price">€{{ room.price_per_night }} <span>{% trans "/ night" %}</span></div>
+          <a href="{% url 'bookings:book_room' %}?room={{ room.id }}" class="room-card__book">{% trans "Book Now" %}</a>
         </div>
       </div>
-
-      <div class="room-card reveal reveal-delay-2">
-        <div class="room-card__img-wrap">
-          <img class="room-card__img"
-            src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=85"
-            alt="{% trans "Junior Suite" %}" />
-        </div>
-        <div class="room-card__overlay">
-          <span class="room-card__type">{% trans "Suite" %}</span>
-          <h3 class="room-card__name">{% trans "Junior Suite" %}</h3>
-          <p class="room-card__desc">
-            {% trans "A generous living area with separate bedroom, espresso bar, and an oversized soaking tub." %}
-          </p>
-          <div class="room-card__footer">
-            <div class="room-card__price">€320 <span>{% trans "/ night" %}</span></div>
-            <a href="{% url 'bookings:book_room' %}" class="room-card__book">{% trans "Book Now" %}</a>
-          </div>
+    </div>
+  {% empty %}
+    {# Fallback if no featured rooms set yet in admin #}
+    <div class="room-card reveal">
+      <div class="room-card__img-wrap">
+        <img class="room-card__img"
+          src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=85"
+          alt="{% trans "Room" %}" />
+      </div>
+      <div class="room-card__overlay">
+        <span class="room-card__type">{% trans "Deluxe" %}</span>
+        <h3 class="room-card__name">{% trans "Coming Soon" %}</h3>
+        <div class="room-card__footer">
+          <a href="{% url 'rooms:room_list' %}" class="room-card__book">{% trans "View Rooms" %}</a>
         </div>
       </div>
-
-      <div class="room-card reveal reveal-delay-3">
-        <div class="room-card__img-wrap">
-          <img class="room-card__img"
-            src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=85"
-            alt="{% trans "Presidential Suite" %}" />
-        </div>
-        <div class="room-card__overlay">
-          <span class="room-card__type">{% trans "Presidential" %}</span>
-          <h3 class="room-card__name">{% trans "Presidential Suite" %}</h3>
-          <p class="room-card__desc">
-            {% trans "The pinnacle of luxury — a full-floor suite with panoramic terrace and private butler service." %}
-          </p>
-          <div class="room-card__footer">
-            <div class="room-card__price">€850 <span>{% trans "/ night" %}</span></div>
-            <a href="{% url 'bookings:book_room' %}" class="room-card__book">{% trans "Book Now" %}</a>
-          </div>
-        </div>
-      </div>
-
     </div>
-
-    <div style="text-align:center;">
-      <a href="{% url 'rooms:room_list' %}" class="btn btn-outline-dark">{% trans "View All Rooms & Suites" %}</a>
-    </div>
-  </div>
-</section>
-
+  {% endfor %}
+</div>
 
 <!-- ═══════════════════════════════════════
      EXPERIENCE STRIP

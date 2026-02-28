@@ -1,0 +1,396 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ room.name }}{% endblock %}
+{% block meta_description %}{{ room.description|truncatewords:25 }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/rooms.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/room_detail.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════
+     IMAGE GALLERY
+═══════════════════════════════════════ -->
+<div class="room-gallery" id="gallery">
+
+  {% if images %}
+
+    <!-- Main image -->
+    <div class="room-gallery__main room-gallery__item"
+         data-src="{{ images.0.image.url }}"
+         data-index="0"
+         onclick="openLightbox(0)">
+      <img src="{{ images.0.image.url }}" alt="{{ room.name }}" />
+    </div>
+
+    <!-- Thumb 1 -->
+    {% if images|length > 1 %}
+      <div class="room-gallery__thumb room-gallery__item"
+           data-src="{{ images.1.image.url }}"
+           data-index="1"
+           onclick="openLightbox(1)">
+        <img src="{{ images.1.image.url }}" alt="{{ room.name }}" />
+      </div>
+    {% endif %}
+
+    <!-- Thumb 2 -->
+    {% if images|length > 2 %}
+      <div class="room-gallery__thumb room-gallery__item"
+           data-src="{{ images.2.image.url }}"
+           data-index="2"
+           onclick="openLightbox(2)">
+        <img src="{{ images.2.image.url }}" alt="{{ room.name }}" />
+        {% if images|length > 3 %}
+          <div class="room-gallery__more">
+            +{{ images|length|add:"-3" }}
+            <span>{% trans "View all photos" %}</span>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  {% else %}
+
+    <!-- Fallback images if none uploaded yet -->
+    <div class="room-gallery__main">
+      <img
+        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&q=85"
+        alt="{{ room.name }}"
+      />
+    </div>
+    <div class="room-gallery__thumb">
+      <img
+        src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=700&q=80"
+        alt="{{ room.name }}"
+      />
+    </div>
+    <div class="room-gallery__thumb">
+      <img
+        src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=700&q=80"
+        alt="{{ room.name }}"
+      />
+    </div>
+
+  {% endif %}
+
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     LIGHTBOX
+═══════════════════════════════════════ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox__nav lightbox__prev" onclick="changeLightbox(-1)">‹</button>
+  <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  <button class="lightbox__nav lightbox__next" onclick="changeLightbox(1)">›</button>
+  <div class="lightbox__counter" id="lightboxCounter"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     ROOM DETAIL
+═══════════════════════════════════════ -->
+<div class="room-detail">
+  <div class="container">
+    <div class="room-detail__layout">
+
+      <!-- ════════════════════════════
+           LEFT — Info
+      ════════════════════════════ -->
+      <div class="room-detail__info">
+
+        <!-- Breadcrumb -->
+        <div class="room-detail__breadcrumb">
+          <a href="{% url 'core:home' %}">{% trans "Home" %}</a>
+          <span>›</span>
+          <a href="{% url 'rooms:room_list' %}">{% trans "Rooms & Suites" %}</a>
+          <span>›</span>
+          <span>{{ room.name }}</span>
+        </div>
+
+        <!-- Type & Name -->
+        <span class="room-detail__type">{{ room.get_room_type_display }}</span>
+        <h1 class="room-detail__name">{{ room.name }}</h1>
+
+        <!-- Quick stats -->
+        <div class="room-detail__stats">
+          <div class="room-detail__stat">
+            <span class="room-detail__stat-icon">👤</span>
+            <div class="room-detail__stat-text">
+              <strong>{{ room.capacity }}</strong>
+              {% trans "Guests" %}
+            </div>
+          </div>
+          {% if room.size_sqm %}
+            <div class="room-detail__stat">
+              <span class="room-detail__stat-icon">📐</span>
+              <div class="room-detail__stat-text">
+                <strong>{{ room.size_sqm }} m²</strong>
+                {% trans "Room Size" %}
+              </div>
+            </div>
+          {% endif %}
+          {% if room.bed_type %}
+            <div class="room-detail__stat">
+              <span class="room-detail__stat-icon">🛏</span>
+              <div class="room-detail__stat-text">
+                <strong>{{ room.bed_type }}</strong>
+                {% trans "Bed Type" %}
+              </div>
+            </div>
+          {% endif %}
+          {% if room.floor %}
+            <div class="room-detail__stat">
+              <span class="room-detail__stat-icon">🏢</span>
+              <div class="room-detail__stat-text">
+                <strong>{{ room.floor }}°</strong>
+                {% trans "Floor" %}
+              </div>
+            </div>
+          {% endif %}
+          {% if room.view %}
+            <div class="room-detail__stat">
+              <span class="room-detail__stat-icon">🌄</span>
+              <div class="room-detail__stat-text">
+                <strong>{{ room.view }}</strong>
+                {% trans "View" %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Description -->
+        <div class="room-detail__description">
+          <p>{{ room.description }}</p>
+        </div>
+
+        <!-- Amenities -->
+        <h2 class="room-detail__amenities-title">{% trans "Room Amenities" %}</h2>
+        <div class="room-detail__amenities-grid">
+          {% if room.has_balcony %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🏡</span>
+              <span class="room-detail__amenity-label">{% trans "Balcony" %}</span>
+            </div>
+          {% endif %}
+          {% if room.has_terrace %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🌿</span>
+              <span class="room-detail__amenity-label">{% trans "Terrace" %}</span>
+            </div>
+          {% endif %}
+          {% if room.has_air_con %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">❄️</span>
+              <span class="room-detail__amenity-label">{% trans "Air Conditioning" %}</span>
+            </div>
+          {% endif %}
+          {% if room.has_minibar %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🍷</span>
+              <span class="room-detail__amenity-label">{% trans "Mini Bar" %}</span>
+            </div>
+          {% endif %}
+          {% if room.has_safe %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🔒</span>
+              <span class="room-detail__amenity-label">{% trans "Safe" %}</span>
+            </div>
+          {% endif %}
+          {% if room.has_bathrobe %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🧖</span>
+              <span class="room-detail__amenity-label">{% trans "Bathrobe & Slippers" %}</span>
+            </div>
+          {% endif %}
+          {% if room.is_pet_friendly %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🐾</span>
+              <span class="room-detail__amenity-label">{% trans "Pet Friendly" %}</span>
+            </div>
+          {% endif %}
+          {% if room.is_accessible %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">♿</span>
+              <span class="room-detail__amenity-label">{% trans "Accessible Room" %}</span>
+            </div>
+          {% endif %}
+          {% if room.is_non_smoking %}
+            <div class="room-detail__amenity">
+              <span class="room-detail__amenity-icon">🚭</span>
+              <span class="room-detail__amenity-label">{% trans "Non Smoking" %}</span>
+            </div>
+          {% endif %}
+          <div class="room-detail__amenity">
+            <span class="room-detail__amenity-icon">📶</span>
+            <span class="room-detail__amenity-label">{% trans "High-Speed WiFi" %}</span>
+          </div>
+          <div class="room-detail__amenity">
+            <span class="room-detail__amenity-icon">🍳</span>
+            <span class="room-detail__amenity-label">{% trans "Breakfast Included" %}</span>
+          </div>
+          <div class="room-detail__amenity">
+            <span class="room-detail__amenity-icon">🛎️</span>
+            <span class="room-detail__amenity-label">{% trans "Room Service" %}</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ════════════════════════════
+           RIGHT — Booking Card
+      ════════════════════════════ -->
+      <div class="room-detail__booking-card">
+
+        <div class="room-detail__booking-card-title">{{ room.name }}</div>
+
+        <!-- Price passed to JS via data attribute — no inline JS -->
+        <div class="room-detail__booking-price"
+             id="pricePerNight"
+             data-price="{{ room.price_per_night }}">
+          €{{ room.price_per_night }}
+          <span>{% trans "/ night" %}</span>
+        </div>
+
+        <div class="room-detail__booking-divider"></div>
+
+        <form action="{% url 'bookings:book_room' %}" method="GET">
+          <input type="hidden" name="room" value="{{ room.id }}" />
+
+          <div class="booking-form__field">
+            <label class="booking-form__label" for="checkIn">{% trans "Check-in" %}</label>
+            <input
+              type="date"
+              name="check_in"
+              id="checkIn"
+              class="booking-form__input"
+            />
+          </div>
+
+          <div class="booking-form__field">
+            <label class="booking-form__label" for="checkOut">{% trans "Check-out" %}</label>
+            <input
+              type="date"
+              name="check_out"
+              id="checkOut"
+              class="booking-form__input"
+            />
+          </div>
+
+          <div class="booking-form__field">
+            <label class="booking-form__label" for="guestsSelect">{% trans "Guests" %}</label>
+            <select name="guests" id="guestsSelect" class="booking-form__input">
+              {% for i in "12345"|make_list %}
+                {% if forloop.counter <= room.capacity %}
+                  <option value="{{ forloop.counter }}">
+                    {{ forloop.counter }} {% trans "guests" %}
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Price summary — shown by JS after dates selected -->
+          <div class="booking-form__summary" id="priceSummary" style="display:none;">
+            <div class="booking-form__summary-row">
+              <span>
+                €{{ room.price_per_night }} ×
+                <span id="nightCount">0</span>
+                {% trans "nights" %}
+              </span>
+              <span>€<span id="subtotal">0</span></span>
+            </div>
+            <div class="booking-form__summary-row total">
+              <span>{% trans "Total" %}</span>
+              <span>€<span id="totalPrice">0</span></span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold booking-form__submit">
+            {% trans "Book Now" %}
+          </button>
+        </form>
+
+        <p class="booking-form__note">
+          {% trans "Free cancellation up to 48 hours before check-in." %}
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     RELATED ROOMS
+═══════════════════════════════════════ -->
+{% if related_rooms %}
+<section class="related-rooms">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{% trans "You Might Also Like" %}</span>
+      <div class="gold-divider"></div>
+      <h2>{% trans "Other Rooms & Suites" %}</h2>
+    </div>
+
+    <div class="related-rooms__grid">
+      {% for related in related_rooms %}
+        <div class="room-listing-card reveal reveal-delay-{{ forloop.counter }}">
+          <div class="room-listing-card__img-wrap">
+            {% with img=related.get_main_image %}
+              {% if img %}
+                <img class="room-listing-card__img" src="{{ img.image.url }}" alt="{{ related.name }}" />
+              {% else %}
+                <img class="room-listing-card__img"
+                  src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80"
+                  alt="{{ related.name }}" />
+              {% endif %}
+            {% endwith %}
+            <span class="room-listing-card__type-badge">{{ related.get_room_type_display }}</span>
+          </div>
+          <div class="room-listing-card__body">
+            <a href="{{ related.get_absolute_url }}" class="room-listing-card__name">
+              {{ related.name }}
+            </a>
+            <div class="room-listing-card__meta">
+              <div class="room-listing-card__meta-item">
+                <span>👤</span>
+                <span>{{ related.capacity }} {% trans "guests" %}</span>
+              </div>
+              {% if related.size_sqm %}
+                <div class="room-listing-card__meta-item">
+                  <span>📐</span>
+                  <span>{{ related.size_sqm }} m²</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="room-listing-card__footer">
+              <div class="room-listing-card__price-wrap">
+                <div class="room-listing-card__price">€{{ related.price_per_night }}</div>
+                <div class="room-listing-card__price-label">{% trans "per night" %}</div>
+              </div>
+              <div class="room-listing-card__actions">
+                <a href="{{ related.get_absolute_url }}" class="btn btn-gold">
+                  {% trans "View Room" %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/pages/room_detail.js' %}"></script>
+{% endblock %}

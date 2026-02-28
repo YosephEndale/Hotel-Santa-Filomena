@@ -1,7 +1,248 @@
 {% extends 'base.html' %}
-{% block title %}Rooms{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "Rooms & Suites" %}{% endblock %}
+{% block meta_description %}{% trans "Explore our countryside rooms and suites. Filter by type, price and capacity and book your perfect stay." %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/rooms.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/pages/room_detail.css' %}" />
+{% endblock %}
+
 {% block content %}
-<div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-  <h1 style="font-family:'Cormorant Garamond',serif; font-size:3rem;">Rooms — Coming Soon</h1>
+
+<!-- ═══════════════════════════════════════
+     PAGE HEADER
+═══════════════════════════════════════ -->
+<div class="rooms-page-header">
+  <div class="rooms-page-header__bg"></div>
+  <div class="rooms-page-header__overlay"></div>
+  <div class="rooms-page-header__content container">
+    <span class="section-label">{% trans "Accommodations" %}</span>
+    <div class="gold-divider left"></div>
+    <h1>{% trans "Rooms & Suites" %}</h1>
+    <p>{% trans "Each room is a sanctuary of comfort, crafted with care in the heart of the Italian countryside." %}</p>
+  </div>
 </div>
+
+
+<!-- ═══════════════════════════════════════
+     FILTERS BAR
+═══════════════════════════════════════ -->
+<div class="filters-bar">
+  <form method="GET" action="{% url 'rooms:room_list' %}">
+    <div class="filters-bar__inner container">
+
+      <div class="filter-group">
+        <label class="filter-group__label">{% trans "Room Type" %}</label>
+        <select name="room_type">
+          <option value="">{% trans "All Types" %}</option>
+          {% for value, label in room_types %}
+            <option value="{{ value }}"
+              {% if current_filters.room_type == value %}selected{% endif %}>
+              {{ label }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-group__label">{% trans "Guests" %}</label>
+        <select name="capacity">
+          <option value="">{% trans "Any" %}</option>
+          <option value="1" {% if current_filters.capacity == '1' %}selected{% endif %}>1+</option>
+          <option value="2" {% if current_filters.capacity == '2' %}selected{% endif %}>2+</option>
+          <option value="3" {% if current_filters.capacity == '3' %}selected{% endif %}>3+</option>
+          <option value="4" {% if current_filters.capacity == '4' %}selected{% endif %}>4+</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-group__label">{% trans "Min Price" %}</label>
+        <input
+          type="number"
+          name="min_price"
+          placeholder="€ 0"
+          value="{{ current_filters.min_price }}"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-group__label">{% trans "Max Price" %}</label>
+        <input
+          type="number"
+          name="max_price"
+          placeholder="€ 999"
+          value="{{ current_filters.max_price }}"
+        />
+      </div>
+
+      <div class="filters-bar__action">
+        <button type="submit" class="btn btn-gold">{% trans "Filter" %}</button>
+        <a href="{% url 'rooms:room_list' %}" class="filters-bar__reset">✕ {% trans "Reset" %}</a>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     ROOMS LISTING
+═══════════════════════════════════════ -->
+<div class="rooms-listing">
+  <div class="container">
+
+    <!-- Results bar -->
+    <div class="results-bar">
+      <p class="results-bar__count">
+        <strong>{{ room_count }}</strong>
+        {% blocktrans with count=room_count %}
+          room available
+        {% endblocktrans %}
+      </p>
+      <div class="results-bar__sort">
+        <label for="sortSelect">{% trans "Sort by" %}</label>
+        <form method="GET" id="sortForm">
+          {# Keep existing filters when sorting #}
+          {% if current_filters.room_type %}
+            <input type="hidden" name="room_type" value="{{ current_filters.room_type }}" />
+          {% endif %}
+          {% if current_filters.capacity %}
+            <input type="hidden" name="capacity" value="{{ current_filters.capacity }}" />
+          {% endif %}
+          {% if current_filters.min_price %}
+            <input type="hidden" name="min_price" value="{{ current_filters.min_price }}" />
+          {% endif %}
+          {% if current_filters.max_price %}
+            <input type="hidden" name="max_price" value="{{ current_filters.max_price }}" />
+          {% endif %}
+          <select name="sort" id="sortSelect" onchange="document.getElementById('sortForm').submit()">
+            <option value="price_asc"  {% if current_filters.sort == 'price_asc'  %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
+            <option value="price_desc" {% if current_filters.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
+            <option value="capacity"   {% if current_filters.sort == 'capacity'   %}selected{% endif %}>{% trans "Capacity" %}</option>
+            <option value="name"       {% if current_filters.sort == 'name'       %}selected{% endif %}>{% trans "Name" %}</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="rooms-listing__grid">
+
+      {% for room in rooms %}
+
+        <div class="room-listing-card reveal">
+
+          <!-- Image -->
+          <div class="room-listing-card__img-wrap">
+            {% with main_image=room.get_main_image %}
+              {% if main_image %}
+                <img
+                  class="room-listing-card__img"
+                  src="{{ main_image.image.url }}"
+                  alt="{{ room.name }}"
+                />
+              {% else %}
+                <img
+                  class="room-listing-card__img"
+                  src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80"
+                  alt="{{ room.name }}"
+                />
+              {% endif %}
+            {% endwith %}
+            <span class="room-listing-card__type-badge">
+              {{ room.get_room_type_display }}
+            </span>
+          </div>
+
+          <!-- Body -->
+          <div class="room-listing-card__body">
+
+            <a href="{{ room.get_absolute_url }}" class="room-listing-card__name">{{ room.name }}</a>
+
+            <!-- Meta: capacity and size -->
+            <div class="room-listing-card__meta">
+              <div class="room-listing-card__meta-item">
+                <span>👤</span>
+                <span>{{ room.capacity }} {% trans "guests" %}</span>
+              </div>
+              {% if room.size_sqm %}
+                <div class="room-listing-card__meta-item">
+                  <span>📐</span>
+                  <span>{{ room.size_sqm }} m²</span>
+                </div>
+              {% endif %}
+              {% if room.bed_type %}
+                <div class="room-listing-card__meta-item">
+                  <span>🛏</span>
+                  <span>{{ room.bed_type }}</span>
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Description -->
+            <p class="room-listing-card__desc">{{ room.description }}</p>
+
+            <!-- Amenity pills -->
+            <div class="room-listing-card__amenities">
+              {% if room.has_balcony %}
+                <span class="amenity-pill">{% trans "Balcony" %}</span>
+              {% endif %}
+              {% if room.has_terrace %}
+                <span class="amenity-pill">{% trans "Terrace" %}</span>
+              {% endif %}
+              {% if room.has_air_con %}
+                <span class="amenity-pill">{% trans "Air Conditioning" %}</span>
+              {% endif %}
+              {% if room.has_minibar %}
+                <span class="amenity-pill">{% trans "Mini Bar" %}</span>
+              {% endif %}
+              {% if room.has_bathrobe %}
+                <span class="amenity-pill">{% trans "Bathrobe" %}</span>
+              {% endif %}
+              {% if room.is_pet_friendly %}
+                <span class="amenity-pill">{% trans "Pet Friendly" %}</span>
+              {% endif %}
+              {% if room.has_safe %}
+                <span class="amenity-pill">{% trans "Safe" %}</span>
+              {% endif %}
+              {% if room.is_accessible %}
+                <span class="amenity-pill">{% trans "Accessible" %}</span>
+              {% endif %}
+            </div>
+
+            <!-- Footer: price + buttons -->
+            <div class="room-listing-card__footer">
+              <div class="room-listing-card__price-wrap">
+                <div class="room-listing-card__price">€{{ room.price_per_night }}</div>
+                <div class="room-listing-card__price-label">{% trans "per night" %}</div>
+              </div>
+              <div class="room-listing-card__actions">
+                <a href="{% url 'bookings:book_room' %}?room={{ room.id }}" class="btn btn-gold">
+                  {% trans "Book Now" %}
+                </a>
+                <a href="{{ room.get_absolute_url }}" class="room-listing-card__view">{% trans "View Details" %} →</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      {% empty %}
+
+        <!-- No results -->
+        <div class="no-results">
+          <span class="no-results__icon">🏡</span>
+          <h3>{% trans "No rooms found" %}</h3>
+          <p>{% trans "Try adjusting your filters to find the perfect room." %}</p>
+          <a href="{% url 'rooms:room_list' %}" class="btn btn-dark">{% trans "Clear Filters" %}</a>
+        </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
 {% endblock %}
