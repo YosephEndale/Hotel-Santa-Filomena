@@ -44,3 +44,16 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
 });
+
+// ── Language switcher toggle ──────────────────────
+const langSwitcher = document.querySelector('.lang-switcher');
+const langBtn      = document.getElementById('langBtn');
+if (langSwitcher && langBtn) {
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langSwitcher.classList.toggle('open');
+  });
+  document.addEventListener('click', () => {
+    langSwitcher.classList.remove('open');
+  });
+}

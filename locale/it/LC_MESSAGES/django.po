@@ -1,0 +1,899 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-28 10:48+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Rooms"
+msgstr "Camere"
+
+msgid "Restaurant"
+msgstr "Ristorante"
+
+msgid "Gallery"
+msgstr "Galleria"
+
+msgid "Contact"
+msgstr "Contatti"
+
+msgid "My Bookings"
+msgstr "Le Mie Prenotazioni"
+
+msgid "Logout"
+msgstr "Esci"
+
+msgid "Login"
+msgstr "Accedi"
+
+msgid "Book Now"
+msgstr "Prenota Ora"
+
+msgid "Toggle menu"
+msgstr "Apri menu"
+
+msgid "Hotel Santa Filomena — Luxury hotel and fine dining in Rome."
+msgstr "Hotel Santa Filomena — Hotel di lusso e ristorante raffinato a Roma."
+
+msgid "A sanctuary of refinement and comfort. We blend Italian elegance with warm, personal service to create memories that last a lifetime."
+msgstr "Un santuario di raffinatezza e comfort. Uniamo l'eleganza italiana a un servizio caldo e personale per creare ricordi che durano tutta la vita."
+
+msgid "Explore"
+msgstr "Esplora"
+
+msgid "Rooms & Suites"
+msgstr "Camere e Suite"
+
+msgid "Services"
+msgstr "Servizi"
+
+msgid "Book a Room"
+msgstr "Prenota una Camera"
+
+msgid "Reserve a Table"
+msgstr "Prenota un Tavolo"
+
+msgid "Amenities"
+msgstr "Servizi"
+
+msgid "Concierge"
+msgstr "Concierge"
+
+msgid "All rights reserved."
+msgstr "Tutti i diritti riservati."
+
+msgid "Crafted with elegance"
+msgstr "Realizzato con eleganza"
+
+msgid "Welcome"
+msgstr "Benvenuti"
+
+msgid "Hotel Santa Filomena — Luxury rooms and fine dining in Rome. Book your stay or reserve a table today."
+msgstr "Hotel Santa Filomena — Camere di lusso e ristorante raffinato a Roma. Prenota il tuo soggiorno o un tavolo oggi."
+
+msgid "Welcome to Hotel Santa Filomena"
+msgstr "Benvenuti all'Hotel Santa Filomena"
+
+msgid "Where Luxury"
+msgstr "Dove il Lusso"
+
+msgid "Meets Serenity"
+msgstr "Incontra la Serenità"
+
+msgid "Experience the finest Italian hospitality — beautifully appointed rooms, an acclaimed restaurant, and service that remembers your name."
+msgstr "Vivi la migliore ospitalità italiana — camere splendidamente arredate, un ristorante pluripremiato e un servizio che ricorda il tuo nome."
+
+msgid "Reserve a Room"
+msgstr "Prenota una Camera"
+
+msgid "Our Restaurant"
+msgstr "Il Nostro Ristorante"
+
+msgid "Scroll"
+msgstr "Scorri"
+
+msgid "Michelin Guide"
+msgstr "Guida Michelin"
+
+msgid "2 Star Restaurant"
+msgstr "Ristorante 2 Stelle"
+
+msgid "Forbes Travel"
+msgstr "Forbes Travel"
+
+msgid "5 Star Hotel 2024"
+msgstr "Hotel 5 Stelle 2024"
+
+msgid "Check-in"
+msgstr "Check-in"
+
+msgid "Check-out"
+msgstr "Check-out"
+
+msgid "Guests"
+msgstr "Ospiti"
+
+msgid "1 Guest"
+msgstr "1 Ospite"
+
+msgid "2 Guests"
+msgstr "2 Ospiti"
+
+msgid "3 Guests"
+msgstr "3 Ospiti"
+
+msgid "4+ Guests"
+msgstr "4+ Ospiti"
+
+msgid "Room Type"
+msgstr "Tipo di Camera"
+
+msgid "Any Type"
+msgstr "Qualsiasi Tipo"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Deluxe"
+msgstr "Deluxe"
+
+msgid "Suite"
+msgstr "Suite"
+
+msgid "Presidential"
+msgstr "Presidenziale"
+
+msgid "Check Availability"
+msgstr "Verifica Disponibilità"
+
+msgid "Our Story"
+msgstr "La Nostra Storia"
+
+msgid "A Heritage of Italian Elegance"
+msgstr "Un'Eredità di Eleganza Italiana"
+
+msgid "Nestled in the heart of Rome, Hotel Santa Filomena has been welcoming discerning guests for over three decades. Our historic building, lovingly restored, blends timeless Roman architecture with contemporary comfort."
+msgstr "Nel cuore di Roma, l'Hotel Santa Filomena accoglie ospiti esigenti da oltre tre decenni. Il nostro edificio storico, amorevolmente restaurato, fonde l'architettura romana senza tempo con il comfort contemporaneo."
+
+msgid "Every detail — from the hand-stitched linens to the locally-sourced breakfast — reflects our commitment to an experience that is both luxurious and deeply human."
+msgstr "Ogni dettaglio — dalle lenzuola cucite a mano alla colazione a chilometro zero — riflette il nostro impegno per un'esperienza al tempo stesso lussuosa e profondamente umana."
+
+msgid "Years of Excellence"
+msgstr "Anni di Eccellenza"
+
+msgid "Unique Rooms"
+msgstr "Camere Uniche"
+
+msgid "Michelin Stars"
+msgstr "Stelle Michelin"
+
+msgid "Explore Our Rooms"
+msgstr "Scopri le Nostre Camere"
+
+msgid "Accommodations"
+msgstr "Alloggi"
+
+msgid "Each of our 48 rooms is a sanctuary — designed for rest, romance, and inspiration."
+msgstr "Ognuna delle nostre 48 camere è un santuario — progettato per il riposo, il romanticismo e l'ispirazione."
+
+msgid "Deluxe Room"
+msgstr "Camera Deluxe"
+
+msgid "Spacious and refined, featuring a king-size bed, marble bathroom, and private balcony with city views."
+msgstr "Spaziosa e raffinata, con letto king-size, bagno in marmo e balcone privato con vista sulla città."
+
+msgid "/ night"
+msgstr "/ notte"
+
+msgid "Junior Suite"
+msgstr "Junior Suite"
+
+msgid "A generous living area with separate bedroom, espresso bar, and an oversized soaking tub."
+msgstr "Un ampio soggiorno con camera da letto separata, bar espresso e una grande vasca da bagno."
+
+msgid "Presidential Suite"
+msgstr "Suite Presidenziale"
+
+msgid "The pinnacle of luxury — a full-floor suite with panoramic terrace and private butler service."
+msgstr "Il massimo del lusso — una suite a piano intero con terrazza panoramica e servizio di butler privato."
+
+msgid "View All Rooms & Suites"
+msgstr "Vedi Tutte le Camere e Suite"
+
+msgid "The Santa Filomena Experience"
+msgstr "L'Esperienza Santa Filomena"
+
+msgid "Every Stay Is a Story"
+msgstr "Ogni Soggiorno È una Storia"
+
+msgid "From the moment you arrive, our team dedicates itself entirely to making your time with us extraordinary — whether it's a romantic getaway, a family celebration, or a business retreat."
+msgstr "Dal momento in cui arrivi, il nostro team si dedica completamente a rendere il tuo soggiorno straordinario — che si tratti di una fuga romantica, una celebrazione in famiglia o un ritiro di lavoro."
+
+msgid "Begin Your Story"
+msgstr "Inizia la Tua Storia"
+
+msgid "Fine Dining"
+msgstr "Alta Cucina"
+
+msgid "Ristorante Santa Filomena"
+msgstr "Ristorante Santa Filomena"
+
+msgid "A two Michelin-starred restaurant celebrating the finest Italian seasonal cuisine."
+msgstr "Un ristorante con due stelle Michelin che celebra la migliore cucina stagionale italiana."
+
+msgid "Seasonal Tasting Menu"
+msgstr "Menu Degustazione Stagionale"
+
+msgid "7 courses · €125 per person"
+msgstr "7 portate · €125 a persona"
+
+msgid "Handmade Pasta"
+msgstr "Pasta Fatta a Mano"
+
+msgid "Made fresh daily"
+msgstr "Preparata fresca ogni giorno"
+
+msgid "Italian Wine Cellar"
+msgstr "Cantina Italiana"
+
+msgid "800+ labels"
+msgstr "800+ etichette"
+
+msgid "Artisan Desserts"
+msgstr "Dolci Artigianali"
+
+msgid "Pastry Chef Marco Bellini"
+msgstr "Pasticcere Marco Bellini"
+
+msgid "Chef's Special"
+msgstr "Piatto dello Chef"
+
+msgid "Market menu · daily"
+msgstr "Menu di mercato · ogni giorno"
+
+msgid "View Full Menu"
+msgstr "Vedi il Menu Completo"
+
+msgid "Hotel Services"
+msgstr "Servizi dell'Hotel"
+
+msgid "Everything You Need"
+msgstr "Tutto Ciò di Cui Hai Bisogno"
+
+msgid "World-class amenities crafted to make every moment exceptional."
+msgstr "Servizi di livello mondiale pensati per rendere ogni momento eccezionale."
+
+msgid "Rooftop Pool"
+msgstr "Piscina sul Tetto"
+
+msgid "Heated infinity pool with panoramic views of Rome. Open year-round."
+msgstr "Piscina a sfioro riscaldata con vista panoramica su Roma. Aperta tutto l'anno."
+
+msgid "Spa & Wellness"
+msgstr "Spa e Benessere"
+
+msgid "Full-service spa with massages, facials, sauna, and steam rooms."
+msgstr "Spa completa con massaggi, trattamenti viso, sauna e bagno turco."
+
+msgid "Valet Parking"
+msgstr "Parcheggio con Valet"
+
+msgid "Complimentary valet service for all hotel guests, 24 hours a day."
+msgstr "Servizio di valet gratuito per tutti gli ospiti dell'hotel, 24 ore su 24."
+
+msgid "Breakfast Included"
+msgstr "Colazione Inclusa"
+
+msgid "Lavish Italian breakfast served each morning in the garden terrace."
+msgstr "Ricca colazione italiana servita ogni mattina nella terrazza giardino."
+
+msgid "24h Concierge"
+msgstr "Concierge 24h"
+
+msgid "Personal concierge available around the clock for all your needs."
+msgstr "Concierge personale disponibile tutto il giorno per ogni vostra esigenza."
+
+msgid "High-Speed WiFi"
+msgstr "WiFi ad Alta Velocità"
+
+msgid "Fiber-optic WiFi throughout the hotel and all outdoor areas."
+msgstr "WiFi in fibra ottica in tutto l'hotel e in tutte le aree esterne."
+
+msgid "Airport Transfer"
+msgstr "Trasferimento Aeroportuale"
+
+msgid "Private car service to and from all major Rome airports."
+msgstr "Servizio di auto privata da e per tutti i principali aeroporti di Roma."
+
+msgid "Garden Terrace"
+msgstr "Terrazza Giardino"
+
+msgid "A serene courtyard garden perfect for al fresco dining and relaxation."
+msgstr "Un sereno giardino interno perfetto per cenare all'aperto e rilassarsi."
+
+msgid "Guest Voices"
+msgstr "Voci degli Ospiti"
+
+msgid "What Our Guests Say"
+msgstr "Cosa Dicono i Nostri Ospiti"
+
+msgid "A masterpiece of Italian hospitality. Every detail — from the thread count to the sommelier's wine pairing — was absolute perfection."
+msgstr "Un capolavoro di ospitalità italiana. Ogni dettaglio — dal numero di fili al abbinamento vini del sommelier — era la perfezione assoluta."
+
+msgid "We celebrated our anniversary here and it exceeded every expectation. The suite, the restaurant, the staff — genuinely the best hotel we've ever stayed in."
+msgstr "Abbiamo festeggiato il nostro anniversario qui e ha superato ogni aspettativa. La suite, il ristorante, il personale — davvero il miglior hotel in cui abbiamo mai soggiornato."
+
+msgid "The restaurant alone is worth the trip to Rome. Chef's tasting menu was an unforgettable journey through Italian cuisine. We will return."
+msgstr "Il ristorante da solo vale il viaggio a Roma. Il menu degustazione dello chef è stato un viaggio indimenticabile attraverso la cucina italiana. Ritorneremo."
+
+msgid "Visual Stories"
+msgstr "Storie Visive"
+
+msgid "Life at Santa Filomena"
+msgstr "La Vita al Santa Filomena"
+
+msgid "Hotel exterior"
+msgstr "Esterno dell'hotel"
+
+msgid "Luxury room"
+msgstr "Camera di lusso"
+
+msgid "Spa"
+msgstr "Spa"
+
+msgid "Food"
+msgstr "Cibo"
+
+msgid "Pool"
+msgstr "Piscina"
+
+msgid "Begin Your Journey"
+msgstr "Inizia il Tuo Viaggio"
+
+msgid "Ready for an Unforgettable Stay?"
+msgstr "Pronto per un Soggiorno Indimenticabile?"
+
+msgid "Book directly with us for the best rates and exclusive guest privileges."
+msgstr "Prenota direttamente con noi per le tariffe migliori e privilegi esclusivi per gli ospiti."
+
+msgid "Hotel Santa Filomena lobby"
+msgstr "Lobby dell'Hotel Santa Filomena"
+
+msgid "Luxury room detail"
+msgstr "Dettaglio camera di lusso"
+
+msgid "Est. Rome"
+msgstr "Fond. Roma"
+
+msgid "Hotel lobby"
+msgstr "Lobby dell'hotel"
+
+msgid "Fine dining"
+msgstr "Alta cucina"
+
+msgid "Handmade pasta"
+msgstr "Pasta fatta a mano"
+
+msgid "Wine cellar"
+msgstr "Cantina"
+
+msgid "Artisan desserts"
+msgstr "Dolci artigianali"
+
+msgid "Chef special"
+msgstr "Piatto dello chef"
+
+msgid "Home"
+msgstr "Home"
+
+
+msgid "Back to Home"
+msgstr "Torna alla Home"
+
+msgid "Back"
+msgstr "Indietro"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Submit"
+msgstr "Invia"
+
+msgid "Confirm"
+msgstr "Conferma"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Filter"
+msgstr "Filtra"
+
+msgid "Sort by"
+msgstr "Ordina per"
+
+msgid "Loading..."
+msgstr "Caricamento..."
+
+msgid "No results found."
+msgstr "Nessun risultato trovato."
+
+msgid "Error"
+msgstr "Errore"
+
+msgid "Success"
+msgstr "Successo"
+
+msgid "Warning"
+msgstr "Avviso"
+
+msgid "Required field"
+msgstr "Campo obbligatorio"
+
+msgid "Optional"
+msgstr "Opzionale"
+
+msgid "per night"
+msgstr "a notte"
+
+msgid "per person"
+msgstr "a persona"
+
+msgid "From"
+msgstr "Da"
+
+msgid "To"
+msgstr "A"
+
+msgid "Total"
+msgstr "Totale"
+
+msgid "Price"
+msgstr "Prezzo"
+
+msgid "Availability"
+msgstr "Disponibilità"
+
+msgid "Available"
+msgstr "Disponibile"
+
+msgid "Not Available"
+msgstr "Non Disponibile"
+
+msgid "Sold Out"
+msgstr "Esaurito"
+
+msgid "View Details"
+msgstr "Vedi Dettagli"
+
+msgid "Read More"
+msgstr "Leggi di più"
+
+msgid "Show More"
+msgstr "Mostra di più"
+
+msgid "Show Less"
+msgstr "Mostra meno"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Open"
+msgstr "Apri"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Room Details"
+msgstr "Dettagli Camera"
+
+msgid "Room Features"
+msgstr "Caratteristiche Camera"
+
+msgid "Capacity"
+msgstr "Capacità"
+
+msgid "Bed Type"
+msgstr "Tipo di Letto"
+
+msgid "King Bed"
+msgstr "Letto King"
+
+msgid "Queen Bed"
+msgstr "Letto Queen"
+
+msgid "Twin Beds"
+msgstr "Letti Singoli"
+
+msgid "Floor"
+msgstr "Piano"
+
+msgid "View"
+msgstr "Vista"
+
+msgid "City View"
+msgstr "Vista sulla Città"
+
+msgid "Garden View"
+msgstr "Vista sul Giardino"
+
+msgid "Pool View"
+msgstr "Vista sulla Piscina"
+
+msgid "Sea View"
+msgstr "Vista sul Mare"
+
+msgid "Balcony"
+msgstr "Balcone"
+
+msgid "Terrace"
+msgstr "Terrazza"
+
+msgid "Air Conditioning"
+msgstr "Aria Condizionata"
+
+msgid "Heating"
+msgstr "Riscaldamento"
+
+msgid "Mini Bar"
+msgstr "Mini Bar"
+
+msgid "Safe"
+msgstr "Cassaforte"
+
+msgid "Hair Dryer"
+msgstr "Asciugacapelli"
+
+msgid "Bathrobe"
+msgstr "Accappatoio"
+
+msgid "Slippers"
+msgstr "Pantofole"
+
+msgid "Room Service"
+msgstr "Servizio in Camera"
+
+msgid "Non-Smoking"
+msgstr "Non Fumatori"
+
+msgid "Pet Friendly"
+msgstr "Animali Ammessi"
+
+msgid "Accessible Room"
+msgstr "Camera Accessibile"
+
+msgid "Booking"
+msgstr "Prenotazione"
+
+msgid "My Reservations"
+msgstr "Le Mie Prenotazioni"
+
+msgid "New Booking"
+msgstr "Nuova Prenotazione"
+
+msgid "Booking Details"
+msgstr "Dettagli Prenotazione"
+
+msgid "Booking Confirmation"
+msgstr "Conferma Prenotazione"
+
+msgid "Booking Reference"
+msgstr "Numero Prenotazione"
+
+msgid "Booking Date"
+msgstr "Data Prenotazione"
+
+msgid "Arrival Date"
+msgstr "Data di Arrivo"
+
+msgid "Departure Date"
+msgstr "Data di Partenza"
+
+msgid "Number of Nights"
+msgstr "Numero di Notti"
+
+msgid "Number of Guests"
+msgstr "Numero di Ospiti"
+
+msgid "Adult"
+msgstr "Adulto"
+
+msgid "Adults"
+msgstr "Adulti"
+
+msgid "Child"
+msgstr "Bambino"
+
+msgid "Children"
+msgstr "Bambini"
+
+msgid "Special Requests"
+msgstr "Richieste Speciali"
+
+msgid "Booking Status"
+msgstr "Stato Prenotazione"
+
+msgid "Pending"
+msgstr "In Attesa"
+
+msgid "Confirmed"
+msgstr "Confermata"
+
+msgid "Cancelled"
+msgstr "Annullata"
+
+msgid "Completed"
+msgstr "Completata"
+
+msgid "Cancel Booking"
+msgstr "Annulla Prenotazione"
+
+msgid "Modify Booking"
+msgstr "Modifica Prenotazione"
+
+msgid "Your booking has been confirmed."
+msgstr "La tua prenotazione è stata confermata."
+
+msgid "Your booking has been cancelled."
+msgstr "La tua prenotazione è stata annullata."
+
+msgid "A confirmation email has been sent to your email address."
+msgstr "Un'email di conferma è stata inviata al tuo indirizzo email."
+
+msgid "Table Reservation"
+msgstr "Prenotazione Tavolo"
+
+msgid "Reserve a Table"
+msgstr "Prenota un Tavolo"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Time"
+msgstr "Orario"
+
+msgid "Party Size"
+msgstr "Numero di Persone"
+
+msgid "Lunch"
+msgstr "Pranzo"
+
+msgid "Dinner"
+msgstr "Cena"
+
+msgid "Breakfast"
+msgstr "Colazione"
+
+msgid "Opening Hours"
+msgstr "Orari di Apertura"
+
+msgid "Monday"
+msgstr "Lunedì"
+
+msgid "Tuesday"
+msgstr "Martedì"
+
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+msgid "Thursday"
+msgstr "Giovedì"
+
+msgid "Friday"
+msgstr "Venerdì"
+
+msgid "Saturday"
+msgstr "Sabato"
+
+msgid "Sunday"
+msgstr "Domenica"
+
+msgid "Closed"
+msgstr "Chiuso"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Starters"
+msgstr "Antipasti"
+
+msgid "Main Courses"
+msgstr "Primi Piatti"
+
+msgid "Second Courses"
+msgstr "Secondi Piatti"
+
+msgid "Desserts"
+msgstr "Dolci"
+
+msgid "Drinks"
+msgstr "Bevande"
+
+msgid "Wine List"
+msgstr "Lista dei Vini"
+
+msgid "Allergens"
+msgstr "Allergeni"
+
+msgid "Vegetarian"
+msgstr "Vegetariano"
+
+msgid "Vegan"
+msgstr "Vegano"
+
+msgid "Gluten Free"
+msgstr "Senza Glutine"
+
+msgid "Chef's Recommendation"
+msgstr "Consiglio dello Chef"
+
+msgid "Seasonal"
+msgstr "Stagionale"
+
+msgid "Signature Dish"
+msgstr "Piatto Signature"
+
+msgid "Full Name"
+msgstr "Nome Completo"
+
+msgid "First Name"
+msgstr "Nome"
+
+msgid "Last Name"
+msgstr "Cognome"
+
+msgid "Email Address"
+msgstr "Indirizzo Email"
+
+msgid "Phone Number"
+msgstr "Numero di Telefono"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Confirm Password"
+msgstr "Conferma Password"
+
+msgid "Forgot Password?"
+msgstr "Password dimenticata?"
+
+msgid "Reset Password"
+msgstr "Reimposta Password"
+
+msgid "Create Account"
+msgstr "Crea Account"
+
+msgid "Already have an account?"
+msgstr "Hai già un account?"
+
+msgid "Don't have an account?"
+msgstr "Non hai un account?"
+
+msgid "Sign Up"
+msgstr "Registrati"
+
+msgid "Sign In"
+msgstr "Accedi"
+
+msgid "Welcome back"
+msgstr "Bentornato"
+
+msgid "My Account"
+msgstr "Il Mio Account"
+
+msgid "My Profile"
+msgstr "Il Mio Profilo"
+
+msgid "Edit Profile"
+msgstr "Modifica Profilo"
+
+msgid "Change Password"
+msgstr "Cambia Password"
+
+msgid "Account Settings"
+msgstr "Impostazioni Account"
+
+msgid "Dashboard"
+msgstr "Pannello"
+
+msgid "Upcoming Stays"
+msgstr "Soggiorni Imminenti"
+
+msgid "Past Stays"
+msgstr "Soggiorni Passati"
+
+msgid "Upcoming Reservations"
+msgstr "Prenotazioni Imminenti"
+
+msgid "Past Reservations"
+msgstr "Prenotazioni Passate"
+
+msgid "No upcoming bookings."
+msgstr "Nessuna prenotazione imminente."
+
+msgid "No past bookings."
+msgstr "Nessuna prenotazione passata."
+
+msgid "Location"
+msgstr "Posizione"
+
+msgid "Address"
+msgstr "Indirizzo"
+
+msgid "City"
+msgstr "Città"
+
+msgid "Country"
+msgstr "Paese"
+
+msgid "Telephone"
+msgstr "Telefono"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Send Message"
+msgstr "Invia Messaggio"
+
+msgid "Message"
+msgstr "Messaggio"
+
+msgid "Subject"
+msgstr "Oggetto"
+
+msgid "Get in Touch"
+msgstr "Contattaci"
+
+msgid "We will get back to you within 24 hours."
+msgstr "Ti risponderemo entro 24 ore."
+
+msgid "Follow Us"
+msgstr "Seguici"
+
+msgid "Newsletter"
+msgstr "Newsletter"
+
+msgid "Subscribe"
+msgstr "Iscriviti"
+
+msgid "Enter your email"
+msgstr "Inserisci la tua email"
+
+msgid "Thank you for subscribing."
+msgstr "Grazie per esserti iscritto."
+
+msgid "Privacy Policy"
+msgstr "Informativa sulla Privacy"
+
+msgid "Terms & Conditions"
+msgstr "Termini e Condizioni"
+
+msgid "Cookie Policy"
+msgstr "Informativa sui Cookie"

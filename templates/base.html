@@ -1,17 +1,17 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="{% block meta_description %}Hotel Santa Filomena — Luxury hotel and fine dining in Rome.{% endblock %}" />
+  <meta name="description" content="{% block meta_description %}{% trans "Hotel Santa Filomena — Luxury hotel and fine dining in Rome." %}{% endblock %}" />
 
   <title>{% block title %}Hotel Santa Filomena{% endblock %}</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,11 +20,11 @@
       theme: {
         extend: {
           colors: {
-            gold:       '#C9A96E',
+            gold:         '#C9A96E',
             'gold-light': '#E8D5B0',
-            dark:       '#1A1612',
-            charcoal:   '#2C2825',
-            cream:      '#FAF7F2',
+            dark:         '#1A1612',
+            charcoal:     '#2C2825',
+            cream:        '#FAF7F2',
           },
           fontFamily: {
             display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -35,18 +35,19 @@
     }
   </script>
 
-  <!-- Your custom CSS -->
+  <!-- Global CSS -->
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
 
   {% block extra_css %}{% endblock %}
 </head>
 
-<body class="font-body bg-[#FFFEF9] text-[#1A1612]">
+<body>
 
   <!-- ═══════════════════════════════════════
        NAVBAR
   ═══════════════════════════════════════ -->
   <nav id="navbar" class="navbar">
+
     <!-- Logo -->
     <a href="{% url 'core:home' %}" class="navbar-logo">
       Santa<span>.</span>Filomena
@@ -54,28 +55,53 @@
 
     <!-- Links -->
     <ul class="navbar-links" id="navLinks">
-      <li><a href="{% url 'core:home' %}">Home</a></li>
-      <li><a href="{% url 'rooms:room_list' %}">Rooms</a></li>
-      <li><a href="{% url 'restaurant:menu' %}">Restaurant</a></li>
-      <li><a href="{% url 'core:home' %}#gallery">Gallery</a></li>
-      <li><a href="{% url 'core:home' %}#contact">Contact</a></li>
+      <li><a href="{% url 'core:home' %}">{% trans "Home" %}</a></li>
+      <li><a href="{% url 'rooms:room_list' %}">{% trans "Rooms" %}</a></li>
+      <li><a href="{% url 'restaurant:menu' %}">{% trans "Restaurant" %}</a></li>
+      <li><a href="{% url 'core:home' %}#gallery">{% trans "Gallery" %}</a></li>
+      <li><a href="{% url 'core:home' %}#contact">{% trans "Contact" %}</a></li>
       {% if user.is_authenticated %}
-        <li><a href="{% url 'accounts:dashboard' %}">My Bookings</a></li>
-        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        <li><a href="{% url 'accounts:dashboard' %}">{% trans "My Bookings" %}</a></li>
+        <li><a href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a></li>
       {% else %}
-        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        <li><a href="{% url 'accounts:login' %}">{% trans "Login" %}</a></li>
       {% endif %}
       <li>
-        <a href="{% url 'bookings:book_room' %}" class="btn-nav-book">Book Now</a>
+        <a href="{% url 'bookings:book_room' %}" class="btn-nav-book">{% trans "Book Now" %}</a>
       </li>
     </ul>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+      <button class="lang-switcher__btn" id="langBtn">
+        <span class="lang-switcher__current">{{ LANGUAGE_CODE|upper }}</span>
+        <span class="lang-switcher__arrow">▾</span>
+      </button>
+      <div class="lang-switcher__dropdown" id="langDropdown">
+        {% get_current_language as CURRENT_LANGUAGE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as LANGUAGES_INFO %}
+        {% for lang in LANGUAGES_INFO %}
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+            <input name="language" type="hidden" value="{{ lang.code }}" />
+            <button type="submit"
+              class="lang-option {% if lang.code == CURRENT_LANGUAGE %}lang-option--active{% endif %}">
+              {{ lang.name_local }}
+            </button>
+          </form>
+        {% endfor %}
+      </div>
+    </div>
+
     <!-- Hamburger (mobile) -->
-    <button id="hamburger" class="hamburger" aria-label="Toggle menu">
+    <button id="hamburger" class="hamburger" aria-label="{% trans "Toggle menu" %}">
       <span></span>
       <span></span>
       <span></span>
     </button>
+
   </nav>
   <!-- ═══════════════════════════════════════
        END NAVBAR
@@ -114,34 +140,39 @@
         <!-- Brand -->
         <div class="footer-brand">
           <span class="footer-logo">Santa<span>.</span>Filomena</span>
-          <p>A sanctuary of refinement and comfort. We blend Italian elegance with warm, personal service to create memories that last a lifetime.</p>
+          <p>{% trans "A sanctuary of refinement and comfort. We blend Italian elegance with warm, personal service to create memories that last a lifetime." %}</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="Facebook">FB</a>
+            <a href="#" aria-label="Twitter">TW</a>
+          </div>
         </div>
 
         <!-- Explore -->
         <div class="footer-col">
-          <h4>Explore</h4>
+          <h4>{% trans "Explore" %}</h4>
           <ul>
-            <li><a href="{% url 'core:home' %}">Home</a></li>
-            <li><a href="{% url 'rooms:room_list' %}">Rooms & Suites</a></li>
-            <li><a href="{% url 'restaurant:menu' %}">Restaurant</a></li>
-            <li><a href="{% url 'core:home' %}#gallery">Gallery</a></li>
+            <li><a href="{% url 'core:home' %}">{% trans "Home" %}</a></li>
+            <li><a href="{% url 'rooms:room_list' %}">{% trans "Rooms & Suites" %}</a></li>
+            <li><a href="{% url 'restaurant:menu' %}">{% trans "Restaurant" %}</a></li>
+            <li><a href="{% url 'core:home' %}#gallery">{% trans "Gallery" %}</a></li>
           </ul>
         </div>
 
         <!-- Services -->
         <div class="footer-col">
-          <h4>Services</h4>
+          <h4>{% trans "Services" %}</h4>
           <ul>
-            <li><a href="{% url 'bookings:book_room' %}">Book a Room</a></li>
-            <li><a href="{% url 'bookings:book_table' %}">Reserve a Table</a></li>
-            <li><a href="{% url 'core:home' %}#amenities">Amenities</a></li>
-            <li><a href="{% url 'core:home' %}#contact">Concierge</a></li>
+            <li><a href="{% url 'bookings:book_room' %}">{% trans "Book a Room" %}</a></li>
+            <li><a href="{% url 'bookings:book_table' %}">{% trans "Reserve a Table" %}</a></li>
+            <li><a href="{% url 'core:home' %}#amenities">{% trans "Amenities" %}</a></li>
+            <li><a href="{% url 'core:home' %}#contact">{% trans "Concierge" %}</a></li>
           </ul>
         </div>
 
         <!-- Contact -->
         <div class="footer-col">
-          <h4>Contact</h4>
+          <h4>{% trans "Contact" %}</h4>
           <address>
             Via Santa Filomena, 12<br />
             Rome, Italy 00184<br />
@@ -154,8 +185,8 @@
 
       <!-- Bottom bar -->
       <div class="footer-bottom">
-        <p>&copy; {% now "Y" %} Hotel Santa Filomena. All rights reserved.</p>
-        <p>Crafted with elegance</p>
+        <p>&copy; {% now "Y" %} Hotel Santa Filomena. {% trans "All rights reserved." %}</p>
+        <p class="footer-bottom-right">{% trans "Crafted with elegance" %}</p>
       </div>
     </div>
   </footer>

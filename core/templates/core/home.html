@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Welcome{% endblock %}
-{% block meta_description %}Hotel Santa Filomena — Luxury rooms and fine dining in Rome. Book your stay or reserve a table today.{% endblock %}
+{% block title %}{% trans "Welcome" %}{% endblock %}
+{% block meta_description %}{% trans "Hotel Santa Filomena — Luxury rooms and fine dining in Rome. Book your stay or reserve a table today." %}{% endblock %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/pages/home.css' %}" />
@@ -19,38 +19,38 @@
   <div class="hero__noise"></div>
 
   <div class="hero__content">
-    <span class="hero__eyebrow">Welcome to Hotel Santa Filomena</span>
+    <span class="hero__eyebrow">{% trans "Welcome to Hotel Santa Filomena" %}</span>
     <h1 class="hero__title">
-      Where Luxury
-      <em>Meets Serenity</em>
+      {% trans "Where Luxury" %}
+      <em>{% trans "Meets Serenity" %}</em>
     </h1>
     <p class="hero__subtitle">
-      Experience the finest Italian hospitality — beautifully appointed rooms, an acclaimed restaurant, and service that remembers your name.
+      {% trans "Experience the finest Italian hospitality — beautifully appointed rooms, an acclaimed restaurant, and service that remembers your name." %}
     </p>
     <div class="hero__cta">
-      <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">Reserve a Room</a>
-      <a href="{% url 'restaurant:menu' %}" class="btn btn-outline-light">Our Restaurant</a>
+      <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">{% trans "Reserve a Room" %}</a>
+      <a href="{% url 'restaurant:menu' %}" class="btn btn-outline-light">{% trans "Our Restaurant" %}</a>
     </div>
   </div>
 
   <div class="hero__scroll">
     <div class="hero__scroll-line"></div>
-    Scroll
+    {% trans "Scroll" %}
   </div>
 
   <div class="hero__badges">
     <div class="hero__badge">
       <span class="hero__badge-icon">⭐</span>
       <div class="hero__badge-text">
-        <strong>Michelin Guide</strong>
-        2 Star Restaurant
+        <strong>{% trans "Michelin Guide" %}</strong>
+        {% trans "2 Star Restaurant" %}
       </div>
     </div>
     <div class="hero__badge">
       <span class="hero__badge-icon">🏆</span>
       <div class="hero__badge-text">
-        <strong>Forbes Travel</strong>
-        5 Star Hotel 2024
+        <strong>{% trans "Forbes Travel" %}</strong>
+        {% trans "5 Star Hotel 2024" %}
       </div>
     </div>
   </div>
@@ -65,38 +65,38 @@
     <div class="booking-bar__inner">
 
       <div class="booking-bar__field">
-        <label class="booking-bar__label">Check-in</label>
-        <input type="date" name="check_in" placeholder="Select date" />
+        <label class="booking-bar__label">{% trans "Check-in" %}</label>
+        <input type="date" name="check_in" />
       </div>
 
       <div class="booking-bar__field">
-        <label class="booking-bar__label">Check-out</label>
-        <input type="date" name="check_out" placeholder="Select date" />
+        <label class="booking-bar__label">{% trans "Check-out" %}</label>
+        <input type="date" name="check_out" />
       </div>
 
       <div class="booking-bar__field">
-        <label class="booking-bar__label">Guests</label>
+        <label class="booking-bar__label">{% trans "Guests" %}</label>
         <select name="guests">
-          <option value="1">1 Guest</option>
-          <option value="2" selected>2 Guests</option>
-          <option value="3">3 Guests</option>
-          <option value="4">4+ Guests</option>
+          <option value="1">{% trans "1 Guest" %}</option>
+          <option value="2" selected>{% trans "2 Guests" %}</option>
+          <option value="3">{% trans "3 Guests" %}</option>
+          <option value="4">{% trans "4+ Guests" %}</option>
         </select>
       </div>
 
       <div class="booking-bar__field">
-        <label class="booking-bar__label">Room Type</label>
+        <label class="booking-bar__label">{% trans "Room Type" %}</label>
         <select name="room_type">
-          <option value="">Any Type</option>
-          <option value="standard">Standard</option>
-          <option value="deluxe">Deluxe</option>
-          <option value="suite">Suite</option>
-          <option value="presidential">Presidential</option>
+          <option value="">{% trans "Any Type" %}</option>
+          <option value="standard">{% trans "Standard" %}</option>
+          <option value="deluxe">{% trans "Deluxe" %}</option>
+          <option value="suite">{% trans "Suite" %}</option>
+          <option value="presidential">{% trans "Presidential" %}</option>
         </select>
       </div>
 
       <div class="booking-bar__action">
-        <button type="submit" class="btn btn-gold">Check Availability</button>
+        <button type="submit" class="btn btn-gold">{% trans "Check Availability" %}</button>
       </div>
 
     </div>
@@ -114,46 +114,46 @@
       <img
         class="heritage__img-main"
         src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=900&q=85"
-        alt="Hotel Santa Filomena lobby"
+        alt="{% trans "Hotel Santa Filomena lobby" %}"
       />
       <img
         class="heritage__img-accent"
         src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80"
-        alt="Luxury room detail"
+        alt="{% trans "Luxury room detail" %}"
       />
       <div class="heritage__year-badge">
         <span class="year">1987</span>
-        <span class="label">Est. Rome</span>
+        <span class="label">{% trans "Est. Rome" %}</span>
       </div>
     </div>
 
     <div class="heritage__text reveal reveal-delay-2">
-      <span class="section-label">Our Story</span>
+      <span class="section-label">{% trans "Our Story" %}</span>
       <div class="gold-divider left"></div>
-      <h2>A Heritage of Italian Elegance</h2>
+      <h2>{% trans "A Heritage of Italian Elegance" %}</h2>
       <p>
-        Nestled in the heart of Rome, Hotel Santa Filomena has been welcoming discerning guests for over three decades. Our historic building, lovingly restored, blends timeless Roman architecture with contemporary comfort.
+        {% trans "Nestled in the heart of Rome, Hotel Santa Filomena has been welcoming discerning guests for over three decades. Our historic building, lovingly restored, blends timeless Roman architecture with contemporary comfort." %}
       </p>
       <p>
-        Every detail — from the hand-stitched linens to the locally-sourced breakfast — reflects our commitment to an experience that is both luxurious and deeply human.
+        {% trans "Every detail — from the hand-stitched linens to the locally-sourced breakfast — reflects our commitment to an experience that is both luxurious and deeply human." %}
       </p>
 
       <div class="heritage__stats">
         <div>
           <span class="heritage__stat-num">37</span>
-          <span class="heritage__stat-label">Years of Excellence</span>
+          <span class="heritage__stat-label">{% trans "Years of Excellence" %}</span>
         </div>
         <div>
           <span class="heritage__stat-num">48</span>
-          <span class="heritage__stat-label">Unique Rooms</span>
+          <span class="heritage__stat-label">{% trans "Unique Rooms" %}</span>
         </div>
         <div>
           <span class="heritage__stat-num">2★</span>
-          <span class="heritage__stat-label">Michelin Stars</span>
+          <span class="heritage__stat-label">{% trans "Michelin Stars" %}</span>
         </div>
       </div>
 
-      <a href="{% url 'rooms:room_list' %}" class="btn btn-dark">Explore Our Rooms</a>
+      <a href="{% url 'rooms:room_list' %}" class="btn btn-dark">{% trans "Explore Our Rooms" %}</a>
     </div>
 
   </div>
@@ -166,29 +166,29 @@
 <section class="rooms-section" id="rooms">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Accommodations</span>
+      <span class="section-label">{% trans "Accommodations" %}</span>
       <div class="gold-divider"></div>
-      <h2>Rooms & Suites</h2>
-      <p>Each of our 48 rooms is a sanctuary — designed for rest, romance, and inspiration.</p>
+      <h2>{% trans "Rooms & Suites" %}</h2>
+      <p>{% trans "Each of our 48 rooms is a sanctuary — designed for rest, romance, and inspiration." %}</p>
     </div>
-  </div>
 
-  <div class="container">
     <div class="rooms-grid">
 
       <div class="room-card reveal reveal-delay-1">
         <div class="room-card__img-wrap">
           <img class="room-card__img"
             src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=85"
-            alt="Deluxe Room" />
+            alt="{% trans "Deluxe Room" %}" />
         </div>
         <div class="room-card__overlay">
-          <span class="room-card__type">Deluxe</span>
-          <h3 class="room-card__name">Deluxe Room</h3>
-          <p class="room-card__desc">Spacious and refined, featuring a king-size bed, marble bathroom, and private balcony with city views.</p>
+          <span class="room-card__type">{% trans "Deluxe" %}</span>
+          <h3 class="room-card__name">{% trans "Deluxe Room" %}</h3>
+          <p class="room-card__desc">
+            {% trans "Spacious and refined, featuring a king-size bed, marble bathroom, and private balcony with city views." %}
+          </p>
           <div class="room-card__footer">
-            <div class="room-card__price">€180 <span>/ night</span></div>
-            <a href="{% url 'bookings:book_room' %}" class="room-card__book">Book Now</a>
+            <div class="room-card__price">€180 <span>{% trans "/ night" %}</span></div>
+            <a href="{% url 'bookings:book_room' %}" class="room-card__book">{% trans "Book Now" %}</a>
           </div>
         </div>
       </div>
@@ -197,15 +197,17 @@
         <div class="room-card__img-wrap">
           <img class="room-card__img"
             src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=85"
-            alt="Junior Suite" />
+            alt="{% trans "Junior Suite" %}" />
         </div>
         <div class="room-card__overlay">
-          <span class="room-card__type">Suite</span>
-          <h3 class="room-card__name">Junior Suite</h3>
-          <p class="room-card__desc">A generous living area with separate bedroom, espresso bar, and an oversized soaking tub.</p>
+          <span class="room-card__type">{% trans "Suite" %}</span>
+          <h3 class="room-card__name">{% trans "Junior Suite" %}</h3>
+          <p class="room-card__desc">
+            {% trans "A generous living area with separate bedroom, espresso bar, and an oversized soaking tub." %}
+          </p>
           <div class="room-card__footer">
-            <div class="room-card__price">€320 <span>/ night</span></div>
-            <a href="{% url 'bookings:book_room' %}" class="room-card__book">Book Now</a>
+            <div class="room-card__price">€320 <span>{% trans "/ night" %}</span></div>
+            <a href="{% url 'bookings:book_room' %}" class="room-card__book">{% trans "Book Now" %}</a>
           </div>
         </div>
       </div>
@@ -214,15 +216,17 @@
         <div class="room-card__img-wrap">
           <img class="room-card__img"
             src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=85"
-            alt="Presidential Suite" />
+            alt="{% trans "Presidential Suite" %}" />
         </div>
         <div class="room-card__overlay">
-          <span class="room-card__type">Presidential</span>
-          <h3 class="room-card__name">Presidential Suite</h3>
-          <p class="room-card__desc">The pinnacle of luxury — a full-floor suite with panoramic terrace and private butler service.</p>
+          <span class="room-card__type">{% trans "Presidential" %}</span>
+          <h3 class="room-card__name">{% trans "Presidential Suite" %}</h3>
+          <p class="room-card__desc">
+            {% trans "The pinnacle of luxury — a full-floor suite with panoramic terrace and private butler service." %}
+          </p>
           <div class="room-card__footer">
-            <div class="room-card__price">€850 <span>/ night</span></div>
-            <a href="{% url 'bookings:book_room' %}" class="room-card__book">Book Now</a>
+            <div class="room-card__price">€850 <span>{% trans "/ night" %}</span></div>
+            <a href="{% url 'bookings:book_room' %}" class="room-card__book">{% trans "Book Now" %}</a>
           </div>
         </div>
       </div>
@@ -230,7 +234,7 @@
     </div>
 
     <div style="text-align:center;">
-      <a href="{% url 'rooms:room_list' %}" class="btn btn-outline-dark">View All Rooms & Suites</a>
+      <a href="{% url 'rooms:room_list' %}" class="btn btn-outline-dark">{% trans "View All Rooms & Suites" %}</a>
     </div>
   </div>
 </section>
@@ -243,11 +247,13 @@
   <div class="experience-strip__bg"></div>
   <div class="experience-strip__overlay"></div>
   <div class="experience-strip__content reveal">
-    <span class="section-label">The Santa Filomena Experience</span>
+    <span class="section-label">{% trans "The Santa Filomena Experience" %}</span>
     <div class="gold-divider left"></div>
-    <h2>Every Stay Is a Story</h2>
-    <p>From the moment you arrive, our team dedicates itself entirely to making your time with us extraordinary — whether it's a romantic getaway, a family celebration, or a business retreat.</p>
-    <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">Begin Your Story</a>
+    <h2>{% trans "Every Stay Is a Story" %}</h2>
+    <p>
+      {% trans "From the moment you arrive, our team dedicates itself entirely to making your time with us extraordinary — whether it's a romantic getaway, a family celebration, or a business retreat." %}
+    </p>
+    <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">{% trans "Begin Your Story" %}</a>
   </div>
 </div>
 
@@ -259,69 +265,72 @@
   <div class="restaurant-section__bg-text">Filomena</div>
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Fine Dining</span>
+      <span class="section-label">{% trans "Fine Dining" %}</span>
       <div class="gold-divider"></div>
-      <h2>Ristorante Santa Filomena</h2>
-      <p>A two Michelin-starred restaurant celebrating the finest Italian seasonal cuisine.</p>
+      <h2>{% trans "Ristorante Santa Filomena" %}</h2>
+      <p>{% trans "A two Michelin-starred restaurant celebrating the finest Italian seasonal cuisine." %}</p>
     </div>
 
     <div class="restaurant-grid">
+
       <div class="food-card food-card--tall reveal">
         <img class="food-card__img"
           src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85"
-          alt="Fine dining" />
+          alt="{% trans "Fine dining" %}" />
         <div class="food-card__info">
-          <div class="food-card__name">Seasonal Tasting Menu</div>
-          <div class="food-card__detail">7 courses · €125 per person</div>
+          <div class="food-card__name">{% trans "Seasonal Tasting Menu" %}</div>
+          <div class="food-card__detail">{% trans "7 courses · €125 per person" %}</div>
         </div>
       </div>
 
       <div class="restaurant-grid--right">
+
         <div class="food-card reveal reveal-delay-1">
           <img class="food-card__img"
             src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&q=80"
-            alt="Handmade pasta" />
+            alt="{% trans "Handmade pasta" %}" />
           <div class="food-card__info">
-            <div class="food-card__name">Handmade Pasta</div>
-            <div class="food-card__detail">Made fresh daily</div>
+            <div class="food-card__name">{% trans "Handmade Pasta" %}</div>
+            <div class="food-card__detail">{% trans "Made fresh daily" %}</div>
           </div>
         </div>
 
         <div class="food-card reveal reveal-delay-2">
           <img class="food-card__img"
             src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80"
-            alt="Wine cellar" />
+            alt="{% trans "Wine cellar" %}" />
           <div class="food-card__info">
-            <div class="food-card__name">Italian Wine Cellar</div>
-            <div class="food-card__detail">800+ labels</div>
+            <div class="food-card__name">{% trans "Italian Wine Cellar" %}</div>
+            <div class="food-card__detail">{% trans "800+ labels" %}</div>
           </div>
         </div>
 
         <div class="food-card reveal reveal-delay-3">
           <img class="food-card__img"
             src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80"
-            alt="Artisan desserts" />
+            alt="{% trans "Artisan desserts" %}" />
           <div class="food-card__info">
-            <div class="food-card__name">Artisan Desserts</div>
-            <div class="food-card__detail">Pastry Chef Marco Bellini</div>
+            <div class="food-card__name">{% trans "Artisan Desserts" %}</div>
+            <div class="food-card__detail">{% trans "Pastry Chef Marco Bellini" %}</div>
           </div>
         </div>
 
         <div class="food-card reveal reveal-delay-4">
           <img class="food-card__img"
             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80"
-            alt="Chef special" />
+            alt="{% trans "Chef special" %}" />
           <div class="food-card__info">
-            <div class="food-card__name">Chef's Special</div>
-            <div class="food-card__detail">Market menu · daily</div>
+            <div class="food-card__name">{% trans "Chef's Special" %}</div>
+            <div class="food-card__detail">{% trans "Market menu · daily" %}</div>
           </div>
         </div>
+
       </div>
     </div>
 
     <div class="restaurant-cta reveal">
-      <a href="{% url 'restaurant:menu' %}" class="btn btn-outline-light">View Full Menu</a>
-      <a href="{% url 'bookings:book_table' %}" class="btn btn-gold">Reserve a Table</a>
+      <a href="{% url 'restaurant:menu' %}" class="btn btn-outline-light">{% trans "View Full Menu" %}</a>
+      <a href="{% url 'bookings:book_table' %}" class="btn btn-gold">{% trans "Reserve a Table" %}</a>
     </div>
   </div>
 </section>
@@ -333,52 +342,52 @@
 <section class="amenities-section" id="amenities">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Hotel Services</span>
+      <span class="section-label">{% trans "Hotel Services" %}</span>
       <div class="gold-divider"></div>
-      <h2>Everything You Need</h2>
-      <p>World-class amenities crafted to make every moment exceptional.</p>
+      <h2>{% trans "Everything You Need" %}</h2>
+      <p>{% trans "World-class amenities crafted to make every moment exceptional." %}</p>
     </div>
 
     <div class="amenities-grid">
       <div class="amenity-card reveal reveal-delay-1">
         <span class="amenity-card__icon">🏊</span>
-        <h4>Rooftop Pool</h4>
-        <p>Heated infinity pool with panoramic views of Rome. Open year-round.</p>
+        <h4>{% trans "Rooftop Pool" %}</h4>
+        <p>{% trans "Heated infinity pool with panoramic views of Rome. Open year-round." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-2">
         <span class="amenity-card__icon">💆</span>
-        <h4>Spa & Wellness</h4>
-        <p>Full-service spa with massages, facials, sauna, and steam rooms.</p>
+        <h4>{% trans "Spa & Wellness" %}</h4>
+        <p>{% trans "Full-service spa with massages, facials, sauna, and steam rooms." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-3">
         <span class="amenity-card__icon">🚗</span>
-        <h4>Valet Parking</h4>
-        <p>Complimentary valet service for all hotel guests, 24 hours a day.</p>
+        <h4>{% trans "Valet Parking" %}</h4>
+        <p>{% trans "Complimentary valet service for all hotel guests, 24 hours a day." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-4">
         <span class="amenity-card__icon">🍳</span>
-        <h4>Breakfast Included</h4>
-        <p>Lavish Italian breakfast served each morning in the garden terrace.</p>
+        <h4>{% trans "Breakfast Included" %}</h4>
+        <p>{% trans "Lavish Italian breakfast served each morning in the garden terrace." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-1">
         <span class="amenity-card__icon">🛎️</span>
-        <h4>24h Concierge</h4>
-        <p>Personal concierge available around the clock for all your needs.</p>
+        <h4>{% trans "24h Concierge" %}</h4>
+        <p>{% trans "Personal concierge available around the clock for all your needs." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-2">
         <span class="amenity-card__icon">📶</span>
-        <h4>High-Speed WiFi</h4>
-        <p>Fiber-optic WiFi throughout the hotel and all outdoor areas.</p>
+        <h4>{% trans "High-Speed WiFi" %}</h4>
+        <p>{% trans "Fiber-optic WiFi throughout the hotel and all outdoor areas." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-3">
         <span class="amenity-card__icon">✈️</span>
-        <h4>Airport Transfer</h4>
-        <p>Private car service to and from all major Rome airports.</p>
+        <h4>{% trans "Airport Transfer" %}</h4>
+        <p>{% trans "Private car service to and from all major Rome airports." %}</p>
       </div>
       <div class="amenity-card reveal reveal-delay-4">
         <span class="amenity-card__icon">🌿</span>
-        <h4>Garden Terrace</h4>
-        <p>A serene courtyard garden perfect for al fresco dining and relaxation.</p>
+        <h4>{% trans "Garden Terrace" %}</h4>
+        <p>{% trans "A serene courtyard garden perfect for al fresco dining and relaxation." %}</p>
       </div>
     </div>
   </div>
@@ -391,9 +400,9 @@
 <section class="testimonials-section">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Guest Voices</span>
+      <span class="section-label">{% trans "Guest Voices" %}</span>
       <div class="gold-divider"></div>
-      <h2 style="color: var(--warm-white);">What Our Guests Say</h2>
+      <h2 style="color: var(--warm-white);">{% trans "What Our Guests Say" %}</h2>
     </div>
 
     <div class="testimonials-grid">
@@ -402,7 +411,9 @@
         <div class="testimonial-card__stars">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
-        <blockquote>"A masterpiece of Italian hospitality. Every detail — from the thread count to the sommelier's wine pairing — was absolute perfection."</blockquote>
+        <blockquote>
+          "{% trans "A masterpiece of Italian hospitality. Every detail — from the thread count to the sommelier's wine pairing — was absolute perfection." %}"
+        </blockquote>
         <div class="testimonial-card__author">
           <div class="testimonial-card__avatar">S</div>
           <div>
@@ -416,7 +427,9 @@
         <div class="testimonial-card__stars">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
-        <blockquote>"We celebrated our anniversary here and it exceeded every expectation. The suite, the restaurant, the staff — genuinely the best hotel we've ever stayed in."</blockquote>
+        <blockquote>
+          "{% trans "We celebrated our anniversary here and it exceeded every expectation. The suite, the restaurant, the staff — genuinely the best hotel we've ever stayed in." %}"
+        </blockquote>
         <div class="testimonial-card__author">
           <div class="testimonial-card__avatar">J</div>
           <div>
@@ -430,7 +443,9 @@
         <div class="testimonial-card__stars">
           <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
         </div>
-        <blockquote>"The restaurant alone is worth the trip to Rome. Chef's tasting menu was an unforgettable journey through Italian cuisine. We will return."</blockquote>
+        <blockquote>
+          "{% trans "The restaurant alone is worth the trip to Rome. Chef's tasting menu was an unforgettable journey through Italian cuisine. We will return." %}"
+        </blockquote>
         <div class="testimonial-card__author">
           <div class="testimonial-card__avatar">M</div>
           <div>
@@ -450,34 +465,34 @@
 ═══════════════════════════════════════ -->
 <section class="gallery-strip" id="gallery">
   <div class="gallery-strip__header">
-    <span class="section-label">Visual Stories</span>
+    <span class="section-label">{% trans "Visual Stories" %}</span>
     <div class="gold-divider"></div>
-    <h2>Life at Santa Filomena</h2>
+    <h2>{% trans "Life at Santa Filomena" %}</h2>
   </div>
 
   <div class="gallery-strip__grid">
     <div class="gallery-strip__item">
-      <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80" alt="Hotel" />
+      <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80" alt="{% trans "Hotel exterior" %}" />
       <div class="gallery-strip__overlay"><span>+</span></div>
     </div>
     <div class="gallery-strip__item">
-      <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80" alt="Room" />
+      <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80" alt="{% trans "Luxury room" %}" />
       <div class="gallery-strip__overlay"><span>+</span></div>
     </div>
     <div class="gallery-strip__item">
-      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Restaurant" />
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="{% trans "Restaurant" %}" />
       <div class="gallery-strip__overlay"><span>+</span></div>
     </div>
     <div class="gallery-strip__item">
-      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80" alt="Spa" />
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80" alt="{% trans "Spa" %}" />
       <div class="gallery-strip__overlay"><span>+</span></div>
     </div>
     <div class="gallery-strip__item">
-      <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80" alt="Food" />
+      <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80" alt="{% trans "Food" %}" />
       <div class="gallery-strip__overlay"><span>+</span></div>
     </div>
     <div class="gallery-strip__item">
-      <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=400&q=80" alt="Pool" />
+      <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=400&q=80" alt="{% trans "Pool" %}" />
       <div class="gallery-strip__overlay"><span>+</span></div>
     </div>
   </div>
@@ -491,13 +506,13 @@
   <div class="cta-section__bg"></div>
   <div class="container">
     <div class="cta-section__content reveal">
-      <span class="section-label">Begin Your Journey</span>
+      <span class="section-label">{% trans "Begin Your Journey" %}</span>
       <div class="gold-divider"></div>
-      <h2>Ready for an Unforgettable Stay?</h2>
-      <p>Book directly with us for the best rates and exclusive guest privileges.</p>
+      <h2>{% trans "Ready for an Unforgettable Stay?" %}</h2>
+      <p>{% trans "Book directly with us for the best rates and exclusive guest privileges." %}</p>
       <div class="cta-section__buttons">
-        <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">Book a Room</a>
-        <a href="{% url 'bookings:book_table' %}" class="btn btn-outline-dark">Reserve a Table</a>
+        <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">{% trans "Book a Room" %}</a>
+        <a href="{% url 'bookings:book_table' %}" class="btn btn-outline-dark">{% trans "Reserve a Table" %}</a>
       </div>
     </div>
   </div>
