@@ -117,9 +117,16 @@ class RoomBooking(models.Model):
         """
         Returns True if another confirmed/pending booking
         overlaps the requested dates for the same room.
+        Only runs if room is already assigned to the instance.
         """
+        try:
+            room = self.room
+        except Exception:
+            # Room not assigned yet — skip conflict check
+            return False
+
         return RoomBooking.objects.filter(
-            room=self.room,
+            room=room,
             status__in=[BookingStatus.PENDING, BookingStatus.CONFIRMED],
             check_in__lt=self.check_out,
             check_out__gt=self.check_in,
@@ -127,6 +134,7 @@ class RoomBooking(models.Model):
 
     # ── Validation ──────────────────────────────────────
     def clean(self):
+        # Only validate dates if both are present
         if self.check_in and self.check_out:
             if self.check_in >= self.check_out:
                 raise ValidationError(
@@ -136,10 +144,15 @@ class RoomBooking(models.Model):
                 raise ValidationError(
                     _('Check-in date cannot be in the past.')
                 )
-            if self.has_conflict():
-                raise ValidationError(
-                    _('This room is not available for the selected dates.')
-                )
+            # Only check conflicts if room is assigned
+            try:
+                self.room
+                if self.has_conflict():
+                    raise ValidationError(
+                        _('This room is not available for the selected dates.')
+                    )
+            except RoomBooking.room.RelatedObjectDoesNotExist:
+                pass
 
     # ── Auto-fill price + reference on save ─────────────
     def save(self, *args, **kwargs):

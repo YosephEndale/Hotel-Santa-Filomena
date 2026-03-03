@@ -897,3 +897,42 @@ msgstr "Termini e Condizioni"
 
 msgid "Cookie Policy"
 msgstr "Informativa sui Cookie"
+
+msgid "Antipasti"
+msgstr "Antipasti"
+
+msgid "Primi Piatti"
+msgstr "Primi Piatti"
+
+msgid "Secondi Piatti"
+msgstr "Secondi Piatti"
+
+msgid "Contorni"
+msgstr "Contorni"
+
+msgid "Dolci"
+msgstr "Dolci"
+
+msgid "Bevande"
+msgstr "Bevande"
+
+msgid "Vini"
+msgstr "Vini"
+
+msgid "Menu Item"
+msgstr "Voce di Menu"
+
+msgid "Menu Items"
+msgstr "Voci di Menu"
+
+msgid "Signature Dish"
+msgstr "Piatto Signature"
+
+msgid "Seasonal"
+msgstr "Stagionale"
+
+msgid "Featured on Homepage"
+msgstr "In Evidenza in Homepage"
+
+msgid "Display Order"
+msgstr "Ordine di Visualizzazione"

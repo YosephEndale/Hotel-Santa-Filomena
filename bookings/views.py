@@ -9,7 +9,7 @@ from .emails import send_booking_confirmation
 
 def book_room(request):
     # Pre-select room from query param (comes from room detail/listing page)
-    room_id = request.GET.get('room') or request.POST.get('room')
+    room_id = request.POST.get('room') or request.GET.get('room')
     room    = get_object_or_404(Room, pk=room_id, is_available=True) if room_id else None
 
     # Pre-fill dates from query params
