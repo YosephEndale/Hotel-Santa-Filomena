@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body        { font-family: 'Georgia', serif; background: #FAF7F2; color: #1A1612; margin: 0; padding: 0; }
+    .wrapper    { max-width: 600px; margin: 0 auto; background: #FFFEF9; }
+    .header     { background: #1A1612; padding: 2.5rem; text-align: center; }
+    .header h1  { font-family: Georgia, serif; color: #C9A96E; font-size: 1.8rem; font-weight: 300; margin: 0; }
+    .header p   { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; margin: 0.5rem 0 0; }
+    .body       { padding: 2.5rem; }
+    .body h2    { font-family: Georgia, serif; font-size: 1.4rem; font-weight: 300; color: #1A1612; margin-bottom: 1rem; }
+    .body p     { font-size: 0.95rem; line-height: 1.8; color: #8A7F74; margin-bottom: 1rem; }
+    .details    { background: #FAF7F2; border: 1px solid rgba(201,169,110,0.25); padding: 1.5rem 2rem; margin: 2rem 0; }
+    .details h3 { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: #C9A96E; margin: 0 0 1.2rem; }
+    .row        { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(201,169,110,0.12); font-size: 0.9rem; }
+    .row:last-child { border-bottom: none; }
+    .row .label { color: #8A7F74; }
+    .row .value { color: #1A1612; font-weight: 400; }
+    .ref-badge  { background: #1A1612; color: #C9A96E; text-align: center; padding: 1rem; font-size: 0.75rem; letter-spacing: 0.2em; margin-bottom: 2rem; }
+    .footer     { background: #1A1612; padding: 2rem; text-align: center; }
+    .footer p   { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin: 0.3rem 0; }
+    .footer a   { color: #C9A96E; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Santa<span style="color:#C9A96E;">.</span>Filomena</h1>
+      <p>Conferma Prenotazione Tavolo</p>
+    </div>
+    <div class="body">
+      <h2>Gentile {{ guest_name }},</h2>
+      <p>La sua prenotazione al ristorante è stata confermata. La aspettiamo!</p>
+      <div class="ref-badge">
+        NUMERO DI RIFERIMENTO: <strong>{{ reference }}</strong>
+      </div>
+      <div class="details">
+        <h3>Dettagli Prenotazione</h3>
+        <div class="row">
+          <span class="label">Data</span>
+          <span class="value">{{ date }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Orario</span>
+          <span class="value">{{ time_slot }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Servizio</span>
+          <span class="value">{{ service }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Ospiti</span>
+          <span class="value">{{ guests }}</span>
+        </div>
+        {% if special_requests %}
+          <div class="row">
+            <span class="label">Richieste speciali</span>
+            <span class="value">{{ special_requests }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <p style="font-size:0.85rem;">
+        In caso di imprevisti, la preghiamo di avvisarci almeno 24 ore prima a
+        <a href="mailto:info@santafilomena.com" style="color:#C9A96E;">info@santafilomena.com</a>
+        oppure al <strong>+39 06 1234 5678</strong>.
+      </p>
+    </div>
+    <div class="footer">
+      <p>Ristorante Santa Filomena</p>
+      <p>Via Santa Filomena, 12 — Roma, Italia 00184</p>
+      <p><a href="mailto:info@santafilomena.com">info@santafilomena.com</a> · +39 06 1234 5678</p>
+    </div>
+  </div>
+</body>
+</html>

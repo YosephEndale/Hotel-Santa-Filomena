@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from .models import RoomBooking, BookingStatus
+from .models import RoomBooking, TableBooking, BookingStatus
 
 
 @admin.register(RoomBooking)
@@ -62,3 +62,39 @@ class RoomBookingAdmin(admin.ModelAdmin):
             obj.get_status_display()
         )
     status_colored.short_description = _('Status')
+
+
+@admin.register(TableBooking)
+class TableBookingAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'reference',
+        'guest_name',
+        'guest_email',
+        'date',
+        'time_slot',
+        'guests',
+        'status',
+        'created_at',
+    )
+    list_filter   = ('status', 'date', 'time_slot')
+    search_fields = ('reference', 'guest_name', 'guest_email')
+    list_editable = ('status',)
+    readonly_fields = ('reference', 'created_at', 'updated_at')
+    ordering = ('-date', 'time_slot')
+
+    fieldsets = (
+        (_('Booking Reference'), {
+            'fields': ('reference', 'status')
+        }),
+        (_('Guest Information'), {
+            'fields': ('guest_name', 'guest_email', 'guest_phone')
+        }),
+        (_('Reservation Details'), {
+            'fields': ('date', 'time_slot', 'guests', 'special_requests')
+        }),
+        (_('Timestamps'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )

@@ -936,3 +936,58 @@ msgstr "In Evidenza in Homepage"
 
 msgid "Display Order"
 msgstr "Ordine di Visualizzazione"
+
+
+msgid "Table Booking"
+msgstr "Prenotazione Tavolo"
+
+msgid "Table Bookings"
+msgstr "Prenotazioni Tavolo"
+
+msgid "Time"
+msgstr "Orario"
+
+msgid "Party Size"
+msgstr "Numero di Persone"
+
+msgid "Reservation date cannot be in the past."
+msgstr "La data di prenotazione non può essere nel passato."
+
+msgid "The restaurant is closed on Mondays."
+msgstr "Il ristorante è chiuso il lunedì."
+
+msgid "For groups larger than 12 please contact us directly."
+msgstr "Per gruppi superiori a 12 persone si prega di contattarci direttamente."
+
+msgid "Not enough seats available for this time slot. Please choose a different time."
+msgstr "Non ci sono abbastanza posti disponibili per questa fascia oraria. Si prega di scegliere un orario diverso."
+
+msgid "Reserve a Table"
+msgstr "Prenota un Tavolo"
+
+msgid "Join us for an unforgettable dining experience. We'll confirm your reservation by email."
+msgstr "Unisciti a noi per un'esperienza gastronomica indimenticabile. Confermeremo la prenotazione via email."
+
+msgid "The restaurant is closed on Mondays. Please choose another day."
+msgstr "Il ristorante è chiuso il lunedì. Si prega di scegliere un altro giorno."
+
+msgid "Confirm Reservation"
+msgstr "Conferma Prenotazione"
+
+msgid "Please notify us at least 24 hours in advance if you need to cancel."
+msgstr "Si prega di avvisarci almeno 24 ore prima in caso di cancellazione."
+
+msgid "max 12"
+msgstr "max 12"
+
+msgid "Your Table is Reserved!"
+msgstr "Il Tuo Tavolo è Prenotato!"
+
+msgid "Reservation Details"
+msgstr "Dettagli Prenotazione"
+
+msgid "Lunch"
+msgstr "Pranzo"
+
+msgid "Dinner"
+msgstr "Cena"

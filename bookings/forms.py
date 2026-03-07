@@ -1,8 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
-from .models import RoomBooking, BookingStatus
-
+from .models import RoomBooking, BookingStatus, TimeSlot, TableBooking
+from django.db import models
 
 class RoomBookingForm(forms.ModelForm):
 
@@ -114,4 +114,105 @@ class RoomBookingForm(forms.ModelForm):
                     _('This room is not available for the selected dates. Please choose different dates.')
                 )
 
+        return cleaned
+
+
+class TableBookingForm(forms.ModelForm):
+
+    class Meta:
+        model  = TableBooking
+        fields = [
+            'guest_name',
+            'guest_email',
+            'guest_phone',
+            'date',
+            'time_slot',
+            'guests',
+            'special_requests',
+        ]
+        widgets = {
+            'guest_name': forms.TextInput(attrs={
+                'class':       'booking-form__input',
+                'placeholder': _('Mario Rossi'),
+            }),
+            'guest_email': forms.EmailInput(attrs={
+                'class':       'booking-form__input',
+                'placeholder': _('mario@example.com'),
+            }),
+            'guest_phone': forms.TextInput(attrs={
+                'class':       'booking-form__input',
+                'placeholder': _('+39 06 1234 5678'),
+            }),
+            'date': forms.DateInput(attrs={
+                'class': 'booking-form__input',
+                'type':  'date',
+            }),
+            'time_slot': forms.Select(attrs={
+                'class': 'booking-form__input',
+            }),
+            'guests': forms.NumberInput(attrs={
+                'class': 'booking-form__input',
+                'min':   '1',
+                'max':   '12',
+            }),
+            'special_requests': forms.Textarea(attrs={
+                'class':       'booking-form__input',
+                'rows':        3,
+                'placeholder': _('Allergies, celebrations, seating preferences...'),
+            }),
+        }
+        labels = {
+            'guest_name':       _('Full Name'),
+            'guest_email':      _('Email Address'),
+            'guest_phone':      _('Phone Number'),
+            'date':             _('Date'),
+            'time_slot':        _('Time'),
+            'guests':           _('Number of Guests'),
+            'special_requests': _('Special Requests'),
+        }
+
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if not date:
+            return date
+        if date < timezone.now().date():
+            raise forms.ValidationError(
+                _('Reservation date cannot be in the past.')
+            )
+        if date.weekday() == 0:
+            raise forms.ValidationError(
+                _('The restaurant is closed on Mondays.')
+            )
+        return date
+
+    def clean_guests(self):
+        guests = self.cleaned_data.get('guests')
+        if guests and guests > 12:
+            raise forms.ValidationError(
+                _('For groups larger than 12 please contact us directly.')
+            )
+        return guests
+
+    def clean(self):
+        cleaned   = super().clean()
+        date      = cleaned.get('date')
+        time_slot = cleaned.get('time_slot')
+        guests    = cleaned.get('guests')
+
+        if date and time_slot and guests:
+            # Check seat availability
+            from .models import TableBooking as TB
+            seats_taken = TB.objects.filter(
+                date=date,
+                time_slot=time_slot,
+                status__in=[BookingStatus.PENDING, BookingStatus.CONFIRMED],
+            ).aggregate(
+                total=models.Sum('guests')
+            )['total'] or 0
+
+            available = TableBooking.MAX_SEATS_PER_SLOT - seats_taken
+            if guests > available:
+                raise forms.ValidationError(
+                    _('Not enough seats available for this time slot. Please choose a different time.')
+                )
         return cleaned

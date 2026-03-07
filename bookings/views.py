@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from rooms.models import Room
-from .models import RoomBooking
-from .forms import RoomBookingForm
-from .emails import send_booking_confirmation
+from .models import RoomBooking, TableBooking
+from .forms import RoomBookingForm, TableBookingForm
+from .emails import send_booking_confirmation, send_table_confirmation
 
 
 def book_room(request):
@@ -60,4 +60,38 @@ def booking_confirmation(request, reference):
 
 
 def book_table(request):
-    return render(request, 'bookings/book_table.html', {})
+    initial = {}
+    if request.GET.get('date'):
+        initial['date'] = request.GET.get('date')
+
+    if request.method == 'POST':
+        form = TableBookingForm(request.POST)
+
+        if form.is_valid():
+            booking = form.save()
+
+            try:
+                send_table_confirmation(booking)
+            except Exception:
+                pass
+
+            return redirect(
+                'bookings:table_confirmation',
+                reference=booking.reference
+            )
+    else:
+        form = TableBookingForm(initial=initial)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'bookings/book_table.html', context)
+
+
+def table_confirmation(request, reference):
+    booking = get_object_or_404(TableBooking, reference=reference)
+    return render(
+        request,
+        'bookings/table_confirmation.html',
+        {'booking': booking}
+    )

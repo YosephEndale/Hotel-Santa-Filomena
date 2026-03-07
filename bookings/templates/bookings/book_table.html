@@ -1,7 +1,216 @@
 {% extends 'base.html' %}
-{% block title %}Reserve a Table{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "Reserve a Table" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/bookings.css' %}" />
+{% endblock %}
+
 {% block content %}
-<div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-  <h1 style="font-family:'Cormorant Garamond',serif; font-size:3rem;">Reserve a Table — Coming Soon</h1>
+
+<!-- Page Header -->
+<div class="bookings-page-header">
+  <div class="bookings-page-header__bg"
+    style="background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1920&q=85');">
+  </div>
+  <div class="bookings-page-header__overlay"></div>
+  <div class="bookings-page-header__content container">
+    <span class="section-label">{% trans "Reservations" %}</span>
+    <div class="gold-divider left"></div>
+    <h1>{% trans "Reserve a Table" %}</h1>
+    <p>{% trans "Join us for an unforgettable dining experience. We'll confirm your reservation by email." %}</p>
+  </div>
 </div>
+
+<!-- Booking Page -->
+<div class="booking-page">
+  <div class="container">
+    <div class="booking-page__layout">
+
+      <!-- LEFT — Form -->
+      <div class="booking-form-section">
+        <span class="section-label">{% trans "Your Details" %}</span>
+        <div class="gold-divider left"></div>
+        <h2>{% trans "Complete Your Reservation" %}</h2>
+
+        <!-- Monday warning -->
+        <div id="mondayWarning"
+          style="display:none; background:rgba(231,76,60,0.06);
+                 border:1px solid rgba(231,76,60,0.3);
+                 border-left:3px solid #e74c3c;
+                 padding:1rem 1.5rem; margin-bottom:1.5rem;">
+          <p style="color:#e74c3c; font-size:0.85rem; margin:0;">
+            {% trans "The restaurant is closed on Mondays. Please choose another day." %}
+          </p>
+        </div>
+
+        <!-- Form errors -->
+        {% if form.non_field_errors %}
+          <div class="booking-form__errors-top">
+            {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'bookings:book_table' %}">
+          {% csrf_token %}
+
+          <div class="booking-form__grid">
+
+            <!-- Full Name -->
+            <div class="booking-form__field booking-form__field--full">
+              <label class="booking-form__label" for="{{ form.guest_name.id_for_label }}">
+                {% trans "Full Name" %} *
+              </label>
+              {{ form.guest_name }}
+              {% if form.guest_name.errors %}
+                <span class="booking-form__error">{{ form.guest_name.errors.0 }}</span>
+              {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="{{ form.guest_email.id_for_label }}">
+                {% trans "Email Address" %} *
+              </label>
+              {{ form.guest_email }}
+              {% if form.guest_email.errors %}
+                <span class="booking-form__error">{{ form.guest_email.errors.0 }}</span>
+              {% endif %}
+            </div>
+
+            <!-- Phone -->
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="{{ form.guest_phone.id_for_label }}">
+                {% trans "Phone Number" %} *
+              </label>
+              {{ form.guest_phone }}
+              {% if form.guest_phone.errors %}
+                <span class="booking-form__error">{{ form.guest_phone.errors.0 }}</span>
+              {% endif %}
+            </div>
+
+            <!-- Date -->
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="{{ form.date.id_for_label }}">
+                {% trans "Date" %} *
+              </label>
+              {{ form.date }}
+              {% if form.date.errors %}
+                <span class="booking-form__error">{{ form.date.errors.0 }}</span>
+              {% endif %}
+            </div>
+
+            <!-- Time slot -->
+            <div class="booking-form__field">
+              <label class="booking-form__label" for="{{ form.time_slot.id_for_label }}">
+                {% trans "Time" %} *
+                — <span id="serviceLabel" style="color:var(--gold); font-size:0.7rem;"></span>
+              </label>
+              {{ form.time_slot }}
+              {% if form.time_slot.errors %}
+                <span class="booking-form__error">{{ form.time_slot.errors.0 }}</span>
+              {% endif %}
+            </div>
+
+            <!-- Guests -->
+            <div class="booking-form__field booking-form__field--full">
+              <label class="booking-form__label" for="{{ form.guests.id_for_label }}">
+                {% trans "Number of Guests" %} *
+                <span style="color:var(--text-muted); font-size:0.65rem; letter-spacing:0.1em; text-transform:none;">
+                  ({% trans "max 12" %})
+                </span>
+              </label>
+              {{ form.guests }}
+              {% if form.guests.errors %}
+                <span class="booking-form__error">{{ form.guests.errors.0 }}</span>
+              {% endif %}
+            </div>
+
+            <!-- Special Requests -->
+            <div class="booking-form__field booking-form__field--full">
+              <label class="booking-form__label" for="{{ form.special_requests.id_for_label }}">
+                {% trans "Special Requests" %}
+              </label>
+              {{ form.special_requests }}
+            </div>
+
+          </div>
+
+          <div class="booking-form__submit-row">
+            <button type="submit" class="btn btn-gold booking-form__submit">
+              {% trans "Confirm Reservation" %}
+            </button>
+            <p class="booking-form__terms">
+              {% trans "Please notify us at least 24 hours in advance if you need to cancel." %}
+            </p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- RIGHT — Summary -->
+      <div class="booking-summary">
+        <img
+          class="booking-summary__img"
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85"
+          alt="{% trans "Restaurant" %}"
+        />
+        <div class="booking-summary__body">
+          <span class="booking-summary__type">{% trans "Fine Dining" %}</span>
+          <div class="booking-summary__name">{% trans "Ristorante Santa Filomena" %}</div>
+
+          <div class="booking-summary__row">
+            <span>📅 {% trans "Date" %}</span>
+            <strong id="summaryDate">—</strong>
+          </div>
+          <div class="booking-summary__row">
+            <span>🕐 {% trans "Time" %}</span>
+            <strong id="summaryTime">—</strong>
+          </div>
+          <div class="booking-summary__row">
+            <span>🍽 {% trans "Service" %}</span>
+            <strong id="summaryService">—</strong>
+          </div>
+          <div class="booking-summary__row">
+            <span>👤 {% trans "Guests" %}</span>
+            <strong id="summaryGuests">—</strong>
+          </div>
+
+          <div class="booking-summary__divider"></div>
+
+          <!-- Opening hours -->
+          <div style="margin-top:0.5rem;">
+            <div class="booking-summary__row">
+              <span style="font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);">
+                {% trans "Opening Hours" %}
+              </span>
+            </div>
+            <div class="booking-summary__row">
+              <span>{% trans "Lunch" %}</span>
+              <strong>12:30 — 14:30</strong>
+            </div>
+            <div class="booking-summary__row">
+              <span>{% trans "Dinner" %}</span>
+              <strong>19:30 — 22:30</strong>
+            </div>
+            <div class="booking-summary__row">
+              <span>{% trans "Closed" %}</span>
+              <strong style="color:#e74c3c;">{% trans "Monday" %}</strong>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/pages/table_booking.js' %}"></script>
 {% endblock %}

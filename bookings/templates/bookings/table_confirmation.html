@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{% trans "Table Reserved" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/bookings.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="confirmation-page">
+  <div class="container">
+
+    <span class="confirmation-page__icon">🍽</span>
+    <h1>{% trans "Your Table is Reserved!" %}</h1>
+    <p class="confirmation-page__subtitle">
+      {% blocktrans with email=booking.guest_email %}
+        A confirmation email has been sent to {{ email }}.
+        We look forward to welcoming you to Ristorante Santa Filomena.
+      {% endblocktrans %}
+    </p>
+
+    <div class="confirmation-ref">
+      {% trans "Booking Reference" %}: {{ booking.reference }}
+    </div>
+
+    <div class="confirmation-details">
+      <div class="confirmation-details__header">
+        <h3>{% trans "Reservation Details" %}</h3>
+      </div>
+      <div class="confirmation-details__body">
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Name" %}</span>
+          <span class="value">{{ booking.guest_name }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Date" %}</span>
+          <span class="value">{{ booking.date }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Time" %}</span>
+          <span class="value">{{ booking.time_slot }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Service" %}</span>
+          <span class="value">{{ booking.service }}</span>
+        </div>
+        <div class="confirmation-details__row">
+          <span class="label">{% trans "Guests" %}</span>
+          <span class="value">{{ booking.guests }}</span>
+        </div>
+        {% if booking.special_requests %}
+          <div class="confirmation-details__row">
+            <span class="label">{% trans "Special Requests" %}</span>
+            <span class="value">{{ booking.special_requests }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="confirmation-page__actions">
+      <a href="{% url 'core:home' %}" class="btn btn-dark">{% trans "Back to Home" %}</a>
+      <a href="{% url 'restaurant:menu' %}" class="btn btn-outline-dark">{% trans "View Menu" %}</a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
