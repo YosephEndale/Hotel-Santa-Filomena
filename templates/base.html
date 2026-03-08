@@ -60,7 +60,45 @@
       <li><a href="{% url 'restaurant:menu' %}">{% trans "Restaurant" %}</a></li>
       <li><a href="{% url 'core:home' %}#gallery">{% trans "Gallery" %}</a></li>
       <li><a href="{% url 'core:home' %}#contact">{% trans "Contact" %}</a></li>
-      <!-- Auth links -->
+    </ul>
+
+    <!-- Right side controls -->
+    <div class="navbar__right">
+
+      <!-- Language Switcher -->
+      <div class="lang-switcher">
+        <button class="lang-switcher__btn" id="langBtn" aria-label="{% trans "Select language" %}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.5"
+               stroke-linecap="round" stroke-linejoin="round"
+               style="opacity:0.7; flex-shrink:0;">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="lang-switcher__current">{{ LANGUAGE_CODE|upper }}</span>
+          <span class="lang-switcher__arrow">▾</span>
+        </button>
+        <div class="lang-switcher__dropdown" id="langDropdown">
+          <div class="lang-switcher__dropdown-label">{% trans "Language" %}</div>
+          {% get_current_language as CURRENT_LANGUAGE %}
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as LANGUAGES_INFO %}
+          {% for lang in LANGUAGES_INFO %}
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+              <input name="language" type="hidden" value="{{ lang.code }}" />
+              <button type="submit"
+                class="lang-option {% if lang.code == CURRENT_LANGUAGE %}lang-option--active{% endif %}">
+                <span class="lang-option__code">{{ lang.code|upper }}</span>
+                <span class="lang-option__name">{{ lang.name_local }}</span>
+              </button>
+            </form>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Auth -->
       <div class="navbar__auth">
         {% if user.is_authenticated %}
           <a href="{% url 'accounts:dashboard' %}" class="navbar__auth-name">
@@ -78,41 +116,20 @@
           </a>
         {% endif %}
       </div>
-      <li>
-        <a href="{% url 'bookings:book_room' %}" class="btn-nav-book">{% trans "Book Now" %}</a>
-      </li>
-    </ul>
 
-    <!-- Language Switcher -->
-    <div class="lang-switcher">
-      <button class="lang-switcher__btn" id="langBtn">
-        <span class="lang-switcher__current">{{ LANGUAGE_CODE|upper }}</span>
-        <span class="lang-switcher__arrow">▾</span>
+      <!-- Book Now -->
+      <a href="{% url 'bookings:book_room' %}" class="btn-nav-book">
+        {% trans "Book Now" %}
+      </a>
+
+      <!-- Hamburger (mobile) -->
+      <button id="hamburger" class="hamburger" aria-label="{% trans "Toggle menu" %}">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-      <div class="lang-switcher__dropdown" id="langDropdown">
-        {% get_current_language as CURRENT_LANGUAGE %}
-        {% get_available_languages as LANGUAGES %}
-        {% get_language_info_list for LANGUAGES as LANGUAGES_INFO %}
-        {% for lang in LANGUAGES_INFO %}
-          <form action="{% url 'set_language' %}" method="post">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ request.get_full_path }}" />
-            <input name="language" type="hidden" value="{{ lang.code }}" />
-            <button type="submit"
-              class="lang-option {% if lang.code == CURRENT_LANGUAGE %}lang-option--active{% endif %}">
-              {{ lang.name_local }}
-            </button>
-          </form>
-        {% endfor %}
-      </div>
-    </div>
 
-    <!-- Hamburger (mobile) -->
-    <button id="hamburger" class="hamburger" aria-label="{% trans "Toggle menu" %}">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    </div>
 
   </nav>
   <!-- ═══════════════════════════════════════

@@ -1061,3 +1061,58 @@ msgstr "Unisciti"
 
 msgid "Browse Rooms"
 msgstr "Sfoglia le Camere"
+
+
+msgid "Upcoming Stays"
+msgstr "Soggiorni Imminenti"
+
+msgid "Upcoming Dinners"
+msgstr "Cene Imminenti"
+
+msgid "Total Room Bookings"
+msgstr "Prenotazioni Camera Totali"
+
+msgid "Total Dinners"
+msgstr "Cene Totali"
+
+msgid "Your Stays"
+msgstr "I Tuoi Soggiorni"
+
+msgid "Your Dinners"
+msgstr "Le Tue Cene"
+
+msgid "Upcoming"
+msgstr "Imminenti"
+
+msgid "Past & Cancelled"
+msgstr "Passati e Cancellati"
+
+msgid "Confirm Cancellation"
+msgstr "Conferma Cancellazione"
+
+msgid "Cancel this booking?"
+msgstr "Cancellare questa prenotazione?"
+
+msgid "This action cannot be undone. You will receive a cancellation confirmation by email."
+msgstr "Questa azione non può essere annullata. Riceverai una conferma di cancellazione via email."
+
+msgid "Yes, Cancel Booking"
+msgstr "Sì, Cancella Prenotazione"
+
+msgid "Keep Booking"
+msgstr "Mantieni Prenotazione"
+
+msgid "This booking cannot be cancelled."
+msgstr "Questa prenotazione non può essere cancellata."
+
+msgid "Cannot cancel a booking that has already started or passed."
+msgstr "Non è possibile cancellare una prenotazione già iniziata o passata."
+
+msgid "Cannot cancel a reservation for today or a past date."
+msgstr "Non è possibile cancellare una prenotazione per oggi o per una data passata."
+
+msgid "Booking %(ref)s has been cancelled."
+msgstr "La prenotazione %(ref)s è stata cancellata."
+
+msgid "Reservation %(ref)s has been cancelled."
+msgstr "La prenotazione %(ref)s è stata cancellata."

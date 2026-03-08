@@ -3,7 +3,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib import admin
 
+admin.site.site_header  = 'Hotel Santa Filomena'
+admin.site.site_title   = 'Santa Filomena Admin'
+admin.site.index_title  = 'Hotel Management'
 urlpatterns = [
     # Language switcher endpoint (must be outside i18n_patterns)
     path('i18n/', include('django.conf.urls.i18n')),
