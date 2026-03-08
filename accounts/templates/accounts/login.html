@@ -1,7 +1,97 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}" />
+{% endblock %}
+
 {% block content %}
-<div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-  <h1 style="font-family:'Cormorant Garamond',serif; font-size:3rem;">Login — Coming Soon</h1>
+
+<div class="auth-page">
+
+  <!-- LEFT — Visual panel -->
+  <div class="auth-page__visual">
+    <div class="auth-page__visual-bg"
+      style="background-image: url('https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&q=85');">
+    </div>
+    <div class="auth-page__visual-overlay"></div>
+
+    <a href="{% url 'core:home' %}" class="auth-page__visual-logo">
+      Santa<span>.</span>Filomena
+    </a>
+
+    <div class="auth-page__visual-content">
+      <span class="section-label">{% trans "Welcome Back" %}</span>
+      <div class="gold-divider left"></div>
+      <h2>{% trans "Good to See You Again" %}</h2>
+      <p>{% trans "Sign in to view your reservations, manage bookings, and continue planning your perfect stay." %}</p>
+    </div>
+  </div>
+
+  <!-- RIGHT — Form panel -->
+  <div class="auth-page__form-panel">
+    <div class="auth-page__form-inner">
+
+      <a href="{% url 'core:home' %}" class="auth-page__back">
+        ← {% trans "Back to Home" %}
+      </a>
+
+      <div class="auth-page__heading">
+        <span class="section-label">{% trans "Sign In" %}</span>
+        <h1>{% trans "Welcome Back" %}</h1>
+        <p>{% trans "Don't have an account?" %}
+          <a href="{% url 'accounts:register' %}" style="color:var(--gold);">{% trans "Create one" %}</a>
+        </p>
+      </div>
+
+      <!-- Non-field errors -->
+      {% if form.non_field_errors %}
+        <div class="auth-form__errors-top">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="POST" class="auth-form" action="{% url 'accounts:login' %}">
+        {% csrf_token %}
+        {% if next_url %}
+          <input type="hidden" name="next" value="{{ next_url }}" />
+        {% endif %}
+
+        <!-- Username -->
+        <div class="auth-form__field">
+          <label class="auth-form__label" for="{{ form.username.id_for_label }}">
+            {% trans "Username" %} *
+          </label>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <span class="auth-form__error">{{ form.username.errors.0 }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="auth-form__field">
+          <label class="auth-form__label" for="{{ form.password.id_for_label }}">
+            {% trans "Password" %} *
+          </label>
+          {{ form.password }}
+          {% if form.password.errors %}
+            <span class="auth-form__error">{{ form.password.errors.0 }}</span>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-gold auth-form__submit">
+          {% trans "Sign In" %}
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
 </div>
+
 {% endblock %}

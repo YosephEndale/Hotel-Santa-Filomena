@@ -991,3 +991,73 @@ msgstr "Pranzo"
 
 msgid "Dinner"
 msgstr "Cena"
+
+
+msgid "Create Account"
+msgstr "Crea Account"
+
+msgid "Sign In"
+msgstr "Accedi"
+
+msgid "Sign Out"
+msgstr "Esci"
+
+msgid "Welcome back, %(name)s!"
+msgstr "Bentornato, %(name)s!"
+
+msgid "Welcome to Hotel Santa Filomena, %(name)s!"
+msgstr "Benvenuto all'Hotel Santa Filomena, %(name)s!"
+
+msgid "You have been logged out. See you soon!"
+msgstr "Hai effettuato il logout. A presto!"
+
+msgid "An account with this email already exists."
+msgstr "Esiste già un account con questa email."
+
+msgid "My Account"
+msgstr "Il Mio Account"
+
+msgid "Begin Your Stay with Us"
+msgstr "Inizia il Tuo Soggiorno con Noi"
+
+msgid "Create an account to manage your bookings, save preferences, and enjoy a seamless experience at Hotel Santa Filomena."
+msgstr "Crea un account per gestire le prenotazioni, salvare le preferenze e vivere un'esperienza fluida all'Hotel Santa Filomena."
+
+msgid "Good to See You Again"
+msgstr "Bentornato"
+
+msgid "Sign in to view your reservations, manage bookings, and continue planning your perfect stay."
+msgstr "Accedi per visualizzare le prenotazioni, gestirle e continuare a pianificare il tuo soggiorno perfetto."
+
+msgid "Don't have an account?"
+msgstr "Non hai un account?"
+
+msgid "Create one"
+msgstr "Creane uno"
+
+msgid "Already have an account?"
+msgstr "Hai già un account?"
+
+msgid "Room Bookings"
+msgstr "Prenotazioni Camera"
+
+msgid "Table Reservations"
+msgstr "Prenotazioni Tavolo"
+
+msgid "New Booking"
+msgstr "Nuova Prenotazione"
+
+msgid "New Reservation"
+msgstr "Nuova Prenotazione"
+
+msgid "No room bookings yet."
+msgstr "Nessuna prenotazione camera ancora."
+
+msgid "No table reservations yet."
+msgstr "Nessuna prenotazione tavolo ancora."
+
+msgid "Join"
+msgstr "Unisciti"
+
+msgid "Browse Rooms"
+msgstr "Sfoglia le Camere"

@@ -1,7 +1,121 @@
 {% extends 'base.html' %}
-{% block title %}Dashboard{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "My Account" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}" />
+{% endblock %}
+
 {% block content %}
-<div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-  <h1 style="font-family:'Cormorant Garamond',serif; font-size:3rem;">Dashboard — Coming Soon</h1>
+
+<div class="dashboard-page">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="dashboard-page__header">
+      <div>
+        <span class="section-label">{% trans "My Account" %}</span>
+        <div class="gold-divider left"></div>
+        <h1 class="dashboard-page__greeting">
+          {% trans "Benvenuto" %},
+          {{ request.user.first_name|default:request.user.username }}
+        </h1>
+        <p class="dashboard-page__meta">{{ request.user.email }}</p>
+      </div>
+      <a href="{% url 'accounts:logout' %}" class="btn btn-outline-dark">
+        {% trans "Sign Out" %}
+      </a>
+    </div>
+
+    <!-- Quick actions -->
+    <div style="display:flex; gap:1rem; margin-bottom:4rem; flex-wrap:wrap;">
+      <a href="{% url 'bookings:book_room' %}" class="btn btn-gold">
+        {% trans "Book a Room" %}
+      </a>
+      <a href="{% url 'bookings:book_table' %}" class="btn btn-dark">
+        {% trans "Reserve a Table" %}
+      </a>
+    </div>
+
+    <!-- Bookings grid -->
+    <div class="dashboard-grid">
+
+      <!-- Room Bookings -->
+      <div class="dashboard-card">
+        <div class="dashboard-card__header">
+          <h3>{% trans "Room Bookings" %}</h3>
+          <a href="{% url 'bookings:book_room' %}">+ {% trans "New Booking" %}</a>
+        </div>
+        <div class="dashboard-card__body">
+          {% if room_bookings %}
+            {% for booking in room_bookings %}
+              <div class="dashboard-booking-row">
+                <div class="dashboard-booking-row__main">
+                  <div class="dashboard-booking-row__ref">{{ booking.reference }}</div>
+                  <div class="dashboard-booking-row__detail">{{ booking.room.name }}</div>
+                  <div class="dashboard-booking-row__dates">
+                    {{ booking.check_in }} → {{ booking.check_out }}
+                    &nbsp;·&nbsp; {{ booking.nights }} {% trans "nights" %}
+                    &nbsp;·&nbsp; €{{ booking.total_price }}
+                  </div>
+                </div>
+                <span class="dashboard-booking-row__status status--{{ booking.status }}">
+                  {{ booking.get_status_display }}
+                </span>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="dashboard-empty">
+              <span class="dashboard-empty__icon">🛏</span>
+              <p>{% trans "No room bookings yet." %}</p>
+              <a href="{% url 'rooms:room_list' %}" class="btn btn-gold" style="font-size:0.7rem; padding:0.7rem 1.8rem;">
+                {% trans "Browse Rooms" %}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Table Bookings -->
+      <div class="dashboard-card">
+        <div class="dashboard-card__header">
+          <h3>{% trans "Table Reservations" %}</h3>
+          <a href="{% url 'bookings:book_table' %}">+ {% trans "New Reservation" %}</a>
+        </div>
+        <div class="dashboard-card__body">
+          {% if table_bookings %}
+            {% for booking in table_bookings %}
+              <div class="dashboard-booking-row">
+                <div class="dashboard-booking-row__main">
+                  <div class="dashboard-booking-row__ref">{{ booking.reference }}</div>
+                  <div class="dashboard-booking-row__detail">
+                    {{ booking.date }} — {{ booking.time_slot }}
+                  </div>
+                  <div class="dashboard-booking-row__dates">
+                    {{ booking.service }}
+                    &nbsp;·&nbsp; {{ booking.guests }} {% trans "guests" %}
+                  </div>
+                </div>
+                <span class="dashboard-booking-row__status status--{{ booking.status }}">
+                  {{ booking.get_status_display }}
+                </span>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="dashboard-empty">
+              <span class="dashboard-empty__icon">🍽</span>
+              <p>{% trans "No table reservations yet." %}</p>
+              <a href="{% url 'bookings:book_table' %}" class="btn btn-gold" style="font-size:0.7rem; padding:0.7rem 1.8rem;">
+                {% trans "Reserve a Table" %}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
 {% endblock %}

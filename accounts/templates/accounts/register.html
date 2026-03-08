@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{% trans "Create Account" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/auth.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+  <!-- LEFT — Visual panel -->
+  <div class="auth-page__visual">
+    <div class="auth-page__visual-bg"
+      style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=85');">
+    </div>
+    <div class="auth-page__visual-overlay"></div>
+
+    <a href="{% url 'core:home' %}" class="auth-page__visual-logo">
+      Santa<span>.</span>Filomena
+    </a>
+
+    <div class="auth-page__visual-content">
+      <span class="section-label">{% trans "Your Account" %}</span>
+      <div class="gold-divider left"></div>
+      <h2>{% trans "Begin Your Stay with Us" %}</h2>
+      <p>{% trans "Create an account to manage your bookings, save preferences, and enjoy a seamless experience at Hotel Santa Filomena." %}</p>
+    </div>
+  </div>
+
+  <!-- RIGHT — Form panel -->
+  <div class="auth-page__form-panel">
+    <div class="auth-page__form-inner">
+
+      <a href="{% url 'core:home' %}" class="auth-page__back">
+        ← {% trans "Back to Home" %}
+      </a>
+
+      <div class="auth-page__heading">
+        <span class="section-label">{% trans "Welcome" %}</span>
+        <h1>{% trans "Create Account" %}</h1>
+        <p>{% trans "Already have an account?" %}
+          <a href="{% url 'accounts:login' %}" style="color:var(--gold);">{% trans "Sign in" %}</a>
+        </p>
+      </div>
+
+      <!-- Non-field errors -->
+      {% if form.non_field_errors %}
+        <div class="auth-form__errors-top">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="POST" class="auth-form" action="{% url 'accounts:register' %}">
+        {% csrf_token %}
+
+        <!-- First & Last name -->
+        <div class="auth-form__row">
+          <div class="auth-form__field">
+            <label class="auth-form__label" for="{{ form.first_name.id_for_label }}">
+              {% trans "First Name" %} *
+            </label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+              <span class="auth-form__error">{{ form.first_name.errors.0 }}</span>
+            {% endif %}
+          </div>
+          <div class="auth-form__field">
+            <label class="auth-form__label" for="{{ form.last_name.id_for_label }}">
+              {% trans "Last Name" %} *
+            </label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+              <span class="auth-form__error">{{ form.last_name.errors.0 }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="auth-form__field">
+          <label class="auth-form__label" for="{{ form.email.id_for_label }}">
+            {% trans "Email Address" %} *
+          </label>
+          {{ form.email }}
+          {% if form.email.errors %}
+            <span class="auth-form__error">{{ form.email.errors.0 }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Username -->
+        <div class="auth-form__field">
+          <label class="auth-form__label" for="{{ form.username.id_for_label }}">
+            {% trans "Username" %} *
+          </label>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <span class="auth-form__error">{{ form.username.errors.0 }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Passwords -->
+        <div class="auth-form__row">
+          <div class="auth-form__field">
+            <label class="auth-form__label" for="{{ form.password1.id_for_label }}">
+              {% trans "Password" %} *
+            </label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+              <span class="auth-form__error">{{ form.password1.errors.0 }}</span>
+            {% endif %}
+          </div>
+          <div class="auth-form__field">
+            <label class="auth-form__label" for="{{ form.password2.id_for_label }}">
+              {% trans "Confirm Password" %} *
+            </label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+              <span class="auth-form__error">{{ form.password2.errors.0 }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-gold auth-form__submit">
+          {% trans "Create Account" %}
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
