@@ -1,7 +1,257 @@
 {% extends 'base.html' %}
-{% block title %}Restaurant{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "Restaurant" %} — Hotel Santa Filomena{% endblock %}
+{% block meta_description %}{% trans "Discover the cuisine of Ristorante Santa Filomena. Two Michelin stars, seasonal Italian countryside cooking." %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/restaurant.css' %}" />
+{% endblock %}
+
 {% block content %}
-<div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-  <h1 style="font-family:'Cormorant Garamond',serif; font-size:3rem;">Restaurant — Coming Soon</h1>
+
+<!-- ═══════════════════════════════════════
+     PAGE HEADER
+═══════════════════════════════════════ -->
+<div class="restaurant-page-header">
+  <div class="restaurant-page-header__bg"></div>
+  <div class="restaurant-page-header__overlay"></div>
+
+  <div class="restaurant-page-header__content">
+    <span class="section-label">{% trans "Fine Dining" %}</span>
+    <div class="gold-divider"></div>
+    <h1>
+      {% trans "Ristorante" %}
+      <em>{% trans "Santa Filomena" %}</em>
+    </h1>
+    <p>
+      {% trans "A celebration of Italian countryside cuisine — seasonal ingredients, ancient recipes, and the warmth of a family table." %}
+    </p>
+
+    <div class="restaurant-page-header__awards">
+      <div class="restaurant-award">
+        <span class="restaurant-award__icon">🌿</span>
+        <div class="restaurant-award__text">
+          <strong>{% trans "Km Zero" %}</strong>
+          <span>{% trans "100% local ingredients" %}</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="restaurant-page-header__scroll">
+    <div class="restaurant-page-header__scroll-line"></div>
+    {% trans "Scroll" %}
+  </div>
 </div>
+
+
+<!-- ═══════════════════════════════════════
+     CHEF STRIP
+═══════════════════════════════════════ -->
+<section class="chef-strip">
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     FEATURED DISHES
+═══════════════════════════════════════ -->
+{% if featured_items %}
+<section class="featured-dishes">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{% trans "Chef's Selection" %}</span>
+      <div class="gold-divider"></div>
+      <h2>{% trans "Signature Dishes" %}</h2>
+      <p>{% trans "A glimpse into the flavours that define our kitchen." %}</p>
+    </div>
+
+    <div class="featured-dishes__grid">
+      {% for dish in featured_items %}
+        <div class="dish-card reveal reveal-delay-{{ forloop.counter }}">
+          <div class="dish-card__img-wrap">
+            {% if dish.photo %}
+              <img class="dish-card__img" src="{{ dish.photo.url }}" alt="{{ dish.name }}" />
+            {% else %}
+              <img class="dish-card__img"
+                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
+                alt="{{ dish.name }}" />
+            {% endif %}
+          </div>
+          {% if dish.is_signature %}
+            <div class="dish-card__badge">{% trans "Signature" %}</div>
+          {% elif dish.is_seasonal %}
+            <div class="dish-card__badge" style="background:var(--charcoal); color:var(--gold-light);">
+              {% trans "Seasonal" %}
+            </div>
+          {% endif %}
+          <div class="dish-card__overlay">
+            <span class="dish-card__category">{{ dish.get_category_display }}</span>
+            <div class="dish-card__name">{{ dish.name }}</div>
+            {% if dish.description %}
+              <div class="dish-card__desc">{{ dish.description|truncatewords:15 }}</div>
+            {% endif %}
+            <div class="dish-card__price">€{{ dish.price }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════
+     FULL MENU
+═══════════════════════════════════════ -->
+<section class="menu-section" id="menu">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <span class="section-label">{% trans "Our Menu" %}</span>
+      <div class="gold-divider"></div>
+      <h2>{% trans "The Full Menu" %}</h2>
+      <p>{% trans "All prices include service. Allergen information available on request." %}</p>
+    </div>
+
+    {% if menu_sections %}
+
+      <nav class="menu-nav" role="tablist">
+        {% for section in menu_sections %}
+          <button
+            class="menu-nav__tab"
+            data-category="{{ section.category }}"
+            role="tab"
+          >
+            {{ section.label }}
+          </button>
+        {% endfor %}
+      </nav>
+
+      {% for section in menu_sections %}
+        <div class="menu-panel" id="panel-{{ section.category }}" role="tabpanel">
+
+          <div class="menu-panel__header">
+            <span class="section-label">{{ section.label }}</span>
+            <div class="gold-divider"></div>
+            <h2>{{ section.label }}</h2>
+          </div>
+
+          <div class="menu-items-grid">
+            {% for item in section.items %}
+              <div class="menu-item-row reveal">
+
+                {% if item.photo %}
+                  <img
+                    class="menu-item-row__img"
+                    src="{{ item.photo.url }}"
+                    alt="{{ item.name }}"
+                  />
+                {% else %}
+                  <div class="menu-item-row__img-placeholder">
+                    {% if item.category == 'drink' or item.category == 'wine' %}🍷
+                    {% elif item.category == 'dessert' %}🍮
+                    {% elif item.category == 'starter' %}🥗
+                    {% else %}🍽{% endif %}
+                  </div>
+                {% endif %}
+
+                <div class="menu-item-row__body">
+                  <div class="menu-item-row__top">
+                    <span class="menu-item-row__name">{{ item.name }}</span>
+                    <span class="menu-item-row__price">€{{ item.price }}</span>
+                  </div>
+                  {% if item.description %}
+                    <p class="menu-item-row__desc">{{ item.description }}</p>
+                  {% endif %}
+                  <div class="menu-item-row__tags">
+                    {% if item.is_signature %}
+                      <span class="menu-item-row__tag signature">{% trans "Signature" %}</span>
+                    {% endif %}
+                    {% if item.is_seasonal %}
+                      <span class="menu-item-row__tag seasonal">{% trans "Seasonal" %}</span>
+                    {% endif %}
+                    {% if item.is_vegan %}
+                      <span class="menu-item-row__tag vegan">{% trans "Vegan" %}</span>
+                    {% elif item.is_vegetarian %}
+                      <span class="menu-item-row__tag vegetarian">{% trans "Vegetarian" %}</span>
+                    {% endif %}
+                    {% if item.is_gluten_free %}
+                      <span class="menu-item-row__tag gluten-free">{% trans "Gluten Free" %}</span>
+                    {% endif %}
+                  </div>
+                </div>
+
+              </div>
+            {% endfor %}
+          </div>
+
+        </div>
+      {% endfor %}
+
+    {% else %}
+
+      <div style="text-align:center; padding: 5rem 0;">
+        <span style="font-size:3rem; display:block; margin-bottom:1.5rem; opacity:0.3;">🍽</span>
+        <h3 style="font-family:var(--font-display); font-size:1.8rem; color:var(--dark); margin-bottom:0.8rem;">
+          {% trans "Menu Coming Soon" %}
+        </h3>
+        <p style="color:var(--text-muted);">
+          {% trans "Our chef is preparing something extraordinary." %}
+        </p>
+      </div>
+
+    {% endif %}
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     RESERVATION STRIP
+═══════════════════════════════════════ -->
+<div class="reservation-strip">
+  <div class="reservation-strip__bg"></div>
+  <div class="reservation-strip__overlay"></div>
+  <div class="reservation-strip__content reveal">
+
+    <span class="section-label">{% trans "Join Us" %}</span>
+    <div class="gold-divider"></div>
+    <h2>{% trans "Reserve Your Table" %}</h2>
+    <p>
+      {% trans "Experience an evening that blends exquisite cuisine, natural beauty, and the legendary warmth of Italian hospitality." %}
+    </p>
+
+    <div class="reservation-strip__hours">
+      <div class="reservation-strip__hour">
+        <span class="reservation-strip__hour-label">{% trans "Lunch" %}</span>
+        <span class="reservation-strip__hour-time">12:30 — 14:30</span>
+      </div>
+      <div class="reservation-strip__hour">
+        <span class="reservation-strip__hour-label">{% trans "Dinner" %}</span>
+        <span class="reservation-strip__hour-time">19:30 — 22:30</span>
+      </div>
+      <div class="reservation-strip__hour">
+        <span class="reservation-strip__hour-label">{% trans "Closed" %}</span>
+        <span class="reservation-strip__hour-time">{% trans "Monday" %}</span>
+      </div>
+    </div>
+
+    <div class="reservation-strip__buttons">
+      <a href="{% url 'bookings:book_table' %}" class="btn btn-gold">
+        {% trans "Reserve a Table" %}
+      </a>
+      <a href="tel:+390612345678" class="btn btn-outline-light">
+        +39 06 1234 5678
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/pages/restaurant.js' %}"></script>
 {% endblock %}
