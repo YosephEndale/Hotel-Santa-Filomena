@@ -40,3 +40,4 @@ staticfiles/
 
 # Local settings — NEVER commit
 hotel_santa_filomena/settings/local.py
+media/

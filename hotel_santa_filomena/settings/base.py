@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple import config
 from django.utils.translation import gettext_lazy as _
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -104,7 +105,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
+# ── Media files (uploads) ─────────────────────────────────
+MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
