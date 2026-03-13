@@ -84,7 +84,6 @@ class RoomBookingAdmin(admin.ModelAdmin):
         'check_out',
         'nights_display',
         'guests',
-        'slot_capacity',
         'total_price_display',
         'created_at_display',
     )
@@ -284,37 +283,6 @@ class RoomBookingAdmin(admin.ModelAdmin):
         )
     booking_summary_panel.short_description = _('Booking Summary')
 
-    def slot_capacity(self, obj):
-        from .models import BookingStatus
-        seats_taken = TableBooking.objects.filter(
-            date=obj.date,
-            time_slot=obj.time_slot,
-            status__in=[BookingStatus.PENDING, BookingStatus.CONFIRMED],
-        ).aggregate(
-            total=__import__('django.db.models', fromlist=['Sum']).Sum('guests')
-        )['total'] or 0
-
-        capacity  = TableBooking.MAX_SEATS_PER_SLOT
-        remaining = capacity - seats_taken
-        pct       = int((seats_taken / capacity) * 100)
-
-        # Colour: green under 60%, amber 60–85%, red over 85%
-        if pct < 60:
-            color = '#2ecc71'
-        elif pct < 85:
-            color = '#f39c12'
-        else:
-            color = '#e74c3c'
-
-        return format_html(
-            '<span style="font-size:11px;color:{};">'
-            '{}/{} seats'
-            '</span>',
-            color,
-            seats_taken,
-            capacity,
-        )
-    slot_capacity.short_description = _('Slot Capacity')
 
 # ══════════════════════════════════════════════════════════════
 #   TABLE BOOKING ADMIN
@@ -379,6 +347,7 @@ class TableBookingAdmin(admin.ModelAdmin):
         'time_slot',
         'service_display',
         'guests',
+        'slot_capacity',
         'created_at_display',
     )
     list_filter = (
@@ -433,6 +402,27 @@ class TableBookingAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
         }),
     )
+
+    def slot_capacity(self, obj):
+        from django.db.models import Sum
+        from .models import BookingStatus
+
+        seats_taken = TableBooking.objects.filter(
+            date=obj.date,
+            time_slot=obj.time_slot,
+            status__in=[BookingStatus.PENDING, BookingStatus.CONFIRMED],
+        ).aggregate(total=Sum('guests'))['total'] or 0
+
+        capacity  = TableBooking.MAX_SEATS_PER_SLOT
+        pct       = int((seats_taken / capacity) * 100)
+
+        color = '#2ecc71' if pct < 60 else '#f39c12' if pct < 85 else '#e74c3c'
+
+        return format_html(
+            '<span style="font-size:11px; color:{};">{}/{} seats</span>',
+            color, seats_taken, capacity,
+        )
+    slot_capacity.short_description = _('Slot Capacity')
 
     def status_badge(self, obj):
         colors = {

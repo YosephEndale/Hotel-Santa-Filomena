@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block userlinks %}
+  <a href="/admin/dashboard/">📊 Dashboard</a> &nbsp;|&nbsp;
+  {{ block.super }}
+{% endblock %}
+
+{% block branding %}
+  <h1 id="site-name">
+    <a href="/admin/dashboard/">
+      Hotel Santa Filomena
+    </a>
+  </h1>
+{% endblock %}
