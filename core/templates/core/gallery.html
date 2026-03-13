@@ -1,0 +1,453 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}{% trans "Gallery" %} — Hotel Santa Filomena{% endblock %}
+{% block meta_description %}{% trans "Explore Hotel Santa Filomena through our gallery — rooms, suites, restaurant and the Italian countryside." %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/gallery.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════
+     PAGE HEADER
+═══════════════════════════════════════ -->
+<div class="gallery-header">
+  <div class="gallery-header__bg"></div>
+  <div class="gallery-header__overlay"></div>
+  <div class="gallery-header__content">
+    <span class="section-label">{% trans "Visual Journey" %}</span>
+    <div class="gold-divider"></div>
+    <h1>{% trans "Our" %} <em>{% trans "Gallery" %}</em></h1>
+    <p>{% trans "Rooms, suites, cuisine and the beauty of the Italian countryside" %}</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     FILTER BAR
+═══════════════════════════════════════ -->
+<div class="gallery-filter-bar">
+  <div class="gallery-filter-bar__inner">
+    <button class="gallery-filter-btn active" data-filter="all">
+      {% trans "All" %}
+    </button>
+    <button class="gallery-filter-btn" data-filter="rooms">
+      {% trans "Rooms & Suites" %}
+    </button>
+    <button class="gallery-filter-btn" data-filter="hotel">
+      {% trans "Hotel" %}
+    </button>
+    <button class="gallery-filter-btn" data-filter="restaurant">
+      {% trans "Restaurant" %}
+    </button>
+    <button class="gallery-filter-btn" data-filter="nature">
+      {% trans "Surroundings" %}
+    </button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     GALLERY BODY
+═══════════════════════════════════════ -->
+<div class="gallery-page" id="gallery">
+  <div class="container">
+
+
+    <!-- ── ROOMS SECTION ─────────────────────────── -->
+    <div class="gallery-category" data-category="rooms">
+      <div class="gallery-category__header">
+        <div class="gallery-category__title-wrap">
+          <span class="section-label">{% trans "Accommodation" %}</span>
+          <h2 class="gallery-category__title">{% trans "Rooms & Suites" %}</h2>
+          <p class="gallery-category__count">
+            {{ room_images.count }} {% trans "photos" %}
+          </p>
+        </div>
+      </div>
+
+      {% if room_images %}
+        <div class="masonry-grid">
+          {% for img in room_images %}
+            <div class="masonry-item gallery-img-trigger reveal"
+              data-src="{{ img.image.url }}"
+              data-caption="{{ img.room.name }}{% if img.caption %} — {{ img.caption }}{% endif %}">
+              <img
+                class="masonry-item__img"
+                src="{{ img.image.url }}"
+                alt="{{ img.room.name }}"
+                loading="lazy"
+              />
+              <div class="masonry-item__overlay">
+                <div class="masonry-item__name">{{ img.room.name }}</div>
+                {% if img.caption %}
+                  <div class="masonry-item__caption">{{ img.caption }}</div>
+                {% endif %}
+              </div>
+              <div class="masonry-item__zoom">＋</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Fallback Unsplash rooms -->
+        <div class="masonry-grid">
+          {% for item in room_fallbacks %}
+            <div class="masonry-item gallery-img-trigger reveal"
+              data-src="{{ item.src }}"
+              data-caption="{{ item.caption }}">
+              <img class="masonry-item__img" src="{{ item.src }}"
+                   alt="{{ item.caption }}" loading="lazy" />
+              <div class="masonry-item__overlay">
+                <div class="masonry-item__name">{{ item.caption }}</div>
+              </div>
+              <div class="masonry-item__zoom">＋</div>
+            </div>
+          {% endfor %}
+
+          {% comment %}Static fallback when no DB images exist{% endcomment %}
+          {% with items="1,2,3,4,5,6" %}
+            {% for i in "123456" %}
+              <div class="masonry-item gallery-img-trigger reveal"
+                data-src="https://images.unsplash.com/photo-163104787640{{ i }}-00000000000{{ i }}?w=900&q=80"
+                data-caption="Room">
+              </div>
+            {% endfor %}
+          {% endwith %}
+
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80"
+            data-caption="Camera Matrimoniale">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80"
+              alt="Camera Matrimoniale" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">Camera Matrimoniale</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&q=80"
+            data-caption="Junior Suite">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&q=80"
+              alt="Junior Suite" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">Junior Suite</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=900&q=80"
+            data-caption="Suite Panoramica">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=900&q=80"
+              alt="Suite Panoramica" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">Suite Panoramica</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=900&q=80"
+            data-caption="Camera Doppia">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=900&q=80"
+              alt="Camera Doppia" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">Camera Doppia</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&q=80"
+            data-caption="Casale">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&q=80"
+              alt="Casale" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">Casale</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+
+    <!-- ── HOTEL SECTION ─────────────────────────── -->
+    <div class="gallery-category" data-category="hotel">
+      <div class="gallery-category__header">
+        <div class="gallery-category__title-wrap">
+          <span class="section-label">{% trans "The Property" %}</span>
+          <h2 class="gallery-category__title">{% trans "Hotel & Amenities" %}</h2>
+        </div>
+      </div>
+
+      <div class="static-grid static-grid--featured">
+        <div class="static-grid__item static-grid__item--tall gallery-img-trigger"
+          data-src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=85"
+          data-caption="{% trans "Hotel Exterior" %}">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=85"
+               alt="{% trans "Hotel Exterior" %}" loading="lazy" />
+          <div class="static-grid__item__overlay">
+            <span class="static-grid__item__label">{% trans "Hotel Exterior" %}</span>
+          </div>
+        </div>
+        <div class="static-grid__item gallery-img-trigger"
+          data-src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&q=85"
+          data-caption="{% trans "Lobby" %}">
+          <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900&q=85"
+               alt="{% trans "Lobby" %}" loading="lazy"
+               style="height:220px; object-fit:cover;" />
+          <div class="static-grid__item__overlay">
+            <span class="static-grid__item__label">{% trans "Lobby" %}</span>
+          </div>
+        </div>
+        <div class="static-grid__item gallery-img-trigger"
+          data-src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=85"
+          data-caption="{% trans "Pool" %}">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=85"
+               alt="{% trans "Pool" %}" loading="lazy"
+               style="height:220px; object-fit:cover;" />
+          <div class="static-grid__item__overlay">
+            <span class="static-grid__item__label">{% trans "Pool" %}</span>
+          </div>
+        </div>
+        <div class="static-grid__item gallery-img-trigger"
+          data-src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=900&q=85"
+          data-caption="{% trans "Spa" %}">
+          <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=900&q=85"
+               alt="{% trans "Spa" %}" loading="lazy"
+               style="height:220px; object-fit:cover;" />
+          <div class="static-grid__item__overlay">
+            <span class="static-grid__item__label">{% trans "Spa" %}</span>
+          </div>
+        </div>
+        <div class="static-grid__item gallery-img-trigger"
+          data-src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=85"
+          data-caption="{% trans "Garden Terrace" %}">
+          <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=85"
+               alt="{% trans "Garden Terrace" %}" loading="lazy"
+               style="height:220px; object-fit:cover;" />
+          <div class="static-grid__item__overlay">
+            <span class="static-grid__item__label">{% trans "Garden Terrace" %}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── RESTAURANT SECTION ─────────────────────── -->
+    <div class="gallery-category" data-category="restaurant">
+      <div class="gallery-category__header">
+        <div class="gallery-category__title-wrap">
+          <span class="section-label">{% trans "Fine Dining" %}</span>
+          <h2 class="gallery-category__title">{% trans "Restaurant & Cuisine" %}</h2>
+          {% if food_images %}
+            <p class="gallery-category__count">
+              {{ food_images.count }} {% trans "photos" %}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if food_images %}
+        <div class="masonry-grid">
+          {% for dish in food_images %}
+            <div class="masonry-item gallery-img-trigger reveal"
+              data-src="{{ dish.photo.url }}"
+              data-caption="{{ dish.name }}">
+              <img
+                class="masonry-item__img"
+                src="{{ dish.photo.url }}"
+                alt="{{ dish.name }}"
+                loading="lazy"
+              />
+              <div class="masonry-item__overlay">
+                <div class="masonry-item__name">{{ dish.name }}</div>
+                <div class="masonry-item__caption">
+                  {{ dish.get_category_display }}
+                  {% if dish.price %} · €{{ dish.price }}{% endif %}
+                </div>
+              </div>
+              <div class="masonry-item__zoom">＋</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <!-- Static fallback -->
+        <div class="static-grid">
+          {% for item in restaurant_static %}
+            <div class="static-grid__item gallery-img-trigger"
+              data-src="{{ item.src }}" data-caption="{{ item.caption }}">
+              <img src="{{ item.src }}" alt="{{ item.caption }}"
+                   loading="lazy" style="height:260px; object-fit:cover;" />
+              <div class="static-grid__item__overlay">
+                <span class="static-grid__item__label">{{ item.caption }}</span>
+              </div>
+            </div>
+          {% endfor %}
+
+          <div class="static-grid__item gallery-img-trigger"
+            data-src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=85"
+            data-caption="{% trans "Restaurant" %}">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=85"
+                 alt="{% trans "Restaurant" %}" loading="lazy"
+                 style="height:260px; object-fit:cover;" />
+            <div class="static-grid__item__overlay">
+              <span class="static-grid__item__label">{% trans "Restaurant" %}</span>
+            </div>
+          </div>
+          <div class="static-grid__item gallery-img-trigger"
+            data-src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=85"
+            data-caption="{% trans "Cuisine" %}">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=85"
+                 alt="{% trans "Cuisine" %}" loading="lazy"
+                 style="height:260px; object-fit:cover;" />
+            <div class="static-grid__item__overlay">
+              <span class="static-grid__item__label">{% trans "Cuisine" %}</span>
+            </div>
+          </div>
+          <div class="static-grid__item gallery-img-trigger"
+            data-src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=85"
+            data-caption="{% trans "Wine Cellar" %}">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=85"
+                 alt="{% trans "Wine Cellar" %}" loading="lazy"
+                 style="height:260px; object-fit:cover;" />
+            <div class="static-grid__item__overlay">
+              <span class="static-grid__item__label">{% trans "Wine Cellar" %}</span>
+            </div>
+          </div>
+          <div class="static-grid__item gallery-img-trigger"
+            data-src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=900&q=85"
+            data-caption="{% trans "Private Dining" %}">
+            <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=900&q=85"
+                 alt="{% trans "Private Dining" %}" loading="lazy"
+                 style="height:260px; object-fit:cover;" />
+            <div class="static-grid__item__overlay">
+              <span class="static-grid__item__label">{% trans "Private Dining" %}</span>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+
+    <!-- ── SURROUNDINGS SECTION ───────────────────── -->
+    <div class="gallery-category" data-category="nature">
+      <div class="gallery-category__header">
+        <div class="gallery-category__title-wrap">
+          <span class="section-label">{% trans "The Territory" %}</span>
+          <h2 class="gallery-category__title">{% trans "Italian Countryside" %}</h2>
+        </div>
+      </div>
+
+      <div class="masonry-grid">
+        {% for item in nature_items %}
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="{{ item.src }}" data-caption="{{ item.caption }}">
+            <img class="masonry-item__img" src="{{ item.src }}"
+                 alt="{{ item.caption }}" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">{{ item.caption }}</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+        {% empty %}
+          {% for src_caption in nature_fallback %}
+            <div class="masonry-item gallery-img-trigger reveal"
+              data-src="{{ src_caption.0 }}" data-caption="{{ src_caption.1 }}">
+              <img class="masonry-item__img" src="{{ src_caption.0 }}"
+                   alt="{{ src_caption.1 }}" loading="lazy" />
+              <div class="masonry-item__overlay">
+                <div class="masonry-item__name">{{ src_caption.1 }}</div>
+              </div>
+              <div class="masonry-item__zoom">＋</div>
+            </div>
+          {% endfor %}
+
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=85"
+            data-caption="{% trans "Tuscany Hills" %}">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=85"
+              alt="{% trans "Tuscany Hills" %}" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">{% trans "Tuscany Hills" %}</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&q=85"
+            data-caption="{% trans "Olive Groves" %}">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&q=85"
+              alt="{% trans "Olive Groves" %}" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">{% trans "Olive Groves" %}</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=900&q=85"
+            data-caption="{% trans "Vineyard" %}">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=900&q=85"
+              alt="{% trans "Vineyard" %}" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">{% trans "Vineyard" %}</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900&q=85"
+            data-caption="{% trans "Countryside Path" %}">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900&q=85"
+              alt="{% trans "Countryside Path" %}" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">{% trans "Countryside Path" %}</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+          <div class="masonry-item gallery-img-trigger reveal"
+            data-src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=900&q=85"
+            data-caption="{% trans "Sunset over Rome" %}">
+            <img class="masonry-item__img"
+              src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=900&q=85"
+              alt="{% trans "Sunset over Rome" %}" loading="lazy" />
+            <div class="masonry-item__overlay">
+              <div class="masonry-item__name">{% trans "Sunset over Rome" %}</div>
+            </div>
+            <div class="masonry-item__zoom">＋</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     LIGHTBOX
+═══════════════════════════════════════ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox__inner">
+    <button class="lightbox__close" id="lbClose" aria-label="Close">✕</button>
+    <img class="lightbox__img" id="lbImg" src="" alt="" />
+    <p class="lightbox__caption" id="lbCaption"></p>
+  </div>
+  <button class="lightbox__prev" id="lbPrev" aria-label="Previous">&#8592;</button>
+  <button class="lightbox__next" id="lbNext" aria-label="Next">&#8594;</button>
+  <div class="lightbox__counter" id="lbCounter"></div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/pages/gallery.js' %}"></script>
+{% endblock %}

@@ -1116,3 +1116,81 @@ msgstr "La prenotazione %(ref)s è stata cancellata."
 
 msgid "Reservation %(ref)s has been cancelled."
 msgstr "La prenotazione %(ref)s è stata cancellata."
+
+msgid "Visual Journey"
+msgstr "Viaggio Visivo"
+
+msgid "Our"
+msgstr "La Nostra"
+
+msgid "Gallery"
+msgstr "Galleria"
+
+msgid "Rooms, suites, cuisine and the beauty of the Italian countryside"
+msgstr "Camere, suite, cucina e la bellezza della campagna italiana"
+
+msgid "All"
+msgstr "Tutto"
+
+msgid "Rooms & Suites"
+msgstr "Camere & Suite"
+
+msgid "Hotel"
+msgstr "Hotel"
+
+msgid "Surroundings"
+msgstr "Dintorni"
+
+msgid "Accommodation"
+msgstr "Alloggio"
+
+msgid "The Property"
+msgstr "La Struttura"
+
+msgid "Hotel & Amenities"
+msgstr "Hotel & Servizi"
+
+msgid "Hotel Exterior"
+msgstr "Esterno dell'Hotel"
+
+msgid "Lobby"
+msgstr "Lobby"
+
+msgid "Pool"
+msgstr "Piscina"
+
+msgid "Spa"
+msgstr "Spa"
+
+msgid "Garden Terrace"
+msgstr "Terrazza Giardino"
+
+msgid "The Territory"
+msgstr "Il Territorio"
+
+msgid "Italian Countryside"
+msgstr "Campagna Italiana"
+
+msgid "Tuscany Hills"
+msgstr "Colline Toscane"
+
+msgid "Olive Groves"
+msgstr "Uliveti"
+
+msgid "Vineyard"
+msgstr "Vigneto"
+
+msgid "Countryside Path"
+msgstr "Sentiero di Campagna"
+
+msgid "Sunset over Rome"
+msgstr "Tramonto su Roma"
+
+msgid "Wine Cellar"
+msgstr "Cantina"
+
+msgid "Private Dining"
+msgstr "Sala Privata"
+
+msgid "photos"
+msgstr "foto"
