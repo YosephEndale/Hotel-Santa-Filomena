@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 from django.utils import timezone
 from django.db.models import Sum, Count
 from .models import RoomBooking, TableBooking, BookingStatus, EmailTemplate
-
 # ── Inline status actions ────────────────────────────────────
 def confirm_bookings(modeladmin, request, queryset):
     updated = queryset.exclude(
@@ -532,23 +531,44 @@ class TableBookingAdmin(admin.ModelAdmin):
 @admin.register(EmailTemplate)
 class EmailTemplateAdmin(admin.ModelAdmin):
 
-    list_display  = ('key', 'subject', 'is_active', 'updated_at')
+    list_display  = ('get_key_display_name', 'subject_preview', 'is_active', 'updated_at')
     list_editable = ('is_active',)
     ordering      = ('key',)
 
+    # ── Prevent adding new ones beyond the two seeded ────
+    def has_add_permission(self, request):
+        return EmailTemplate.objects.count() < len(EmailTemplate.TemplateKey.choices)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
     fieldsets = (
-        (None, {
+        (_('Template'), {
             'fields': ('key', 'is_active'),
         }),
-        (_('Content'), {
+        (_('Email Content'), {
             'fields': ('subject', 'body'),
-            'description': _(
-                'Available variables: '
-                '{{ reference }}, {{ guest_name }}, {{ guest_email }}, '
-                '{{ room_name }}, {{ check_in }}, {{ check_out }}, '
-                '{{ nights }}, {{ guests }}, {{ total_price }}, '
-                '{{ price_per_night }}, {{ special_requests }}, '
+            'description': mark_safe(
+                '<div style="'
+                'background:#1A1612;'
+                'color:#C9A96E;'
+                'padding:1rem 1.5rem;'
+                'font-family:monospace;'
+                'font-size:0.78rem;'
+                'line-height:2;'
+                'margin-bottom:1rem;'
+                '">'
+                '<strong style="letter-spacing:0.15em;">AVAILABLE VARIABLES</strong><br/>'
+                '<span style="color:rgba(255,255,255,0.6);">Guest info: </span>'
+                '{{ guest_name }}, {{ guest_email }}<br/>'
+                '<span style="color:rgba(255,255,255,0.6);">Booking: </span>'
+                '{{ reference }}, {{ guests }}, {{ special_requests }}<br/>'
+                '<span style="color:rgba(255,255,255,0.6);">Room booking: </span>'
+                '{{ room_name }}, {{ check_in }}, {{ check_out }}, {{ nights }}, '
+                '{{ price_per_night }}, {{ total_price }}<br/>'
+                '<span style="color:rgba(255,255,255,0.6);">Table booking: </span>'
                 '{{ date }}, {{ time_slot }}, {{ service }}'
+                '</div>'
             ),
         }),
         (_('Last Updated'), {
@@ -559,14 +579,35 @@ class EmailTemplateAdmin(admin.ModelAdmin):
 
     readonly_fields = ('updated_at',)
 
+    def get_key_display_name(self, obj):
+        return obj.get_key_display()
+    get_key_display_name.short_description = _('Template')
+
+    def subject_preview(self, obj):
+        return obj.subject[:60] + '…' if len(obj.subject) > 60 else obj.subject
+    subject_preview.short_description = _('Subject')
+
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        # Make body textarea taller
         form.base_fields['body'].widget.attrs.update({
-            'rows': 22,
-            'style': 'font-family: monospace; font-size: 0.85rem;',
+            'rows':  24,
+            'style': (
+                'font-family:monospace;'
+                'font-size:0.85rem;'
+                'line-height:1.8;'
+                'background:#fdf9f4;'
+                'border:1px solid #e0d6c8;'
+                'padding:1rem;'
+            ),
         })
         form.base_fields['subject'].widget.attrs.update({
-            'style': 'font-family: monospace; font-size: 0.85rem;',
+            'style': (
+                'font-family:monospace;'
+                'font-size:0.9rem;'
+                'background:#fdf9f4;'
+                'border:1px solid #e0d6c8;'
+                'padding:0.6rem 1rem;'
+                'width:100%;'
+            ),
         })
         return form

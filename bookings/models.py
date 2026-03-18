@@ -322,11 +322,9 @@ class EmailTemplate(models.Model):
     subject = models.CharField(
         _('Subject'),
         max_length=200,
-        help_text=_('Available variables: {{ reference }}, {{ guest_name }}, {{ room_name }}, {{ check_in }}, {{ check_out }}, {{ nights }}, {{ guests }}, {{ total_price }}, {{ date }}, {{ time_slot }}, {{ service }}')
     )
     body = models.TextField(
         _('Body'),
-        help_text=_('Plain text email body. Same variables as subject are available.')
     )
     is_active = models.BooleanField(
         _('Active'),

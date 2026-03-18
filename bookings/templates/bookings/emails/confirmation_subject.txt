@@ -1,1 +1,0 @@
-Conferma Prenotazione {{ reference }} — Hotel Santa Filomena
