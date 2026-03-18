@@ -3,8 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
 from django.utils import timezone
 from django.db.models import Sum, Count
-from .models import RoomBooking, TableBooking, BookingStatus
-
+from .models import RoomBooking, TableBooking, BookingStatus, EmailTemplate
 
 # ── Inline status actions ────────────────────────────────────
 def confirm_bookings(modeladmin, request, queryset):
@@ -527,3 +526,47 @@ class TableBookingAdmin(admin.ModelAdmin):
             guests       = obj.guests,
         )
     table_summary_panel.short_description = _('Reservation Summary')
+
+
+
+@admin.register(EmailTemplate)
+class EmailTemplateAdmin(admin.ModelAdmin):
+
+    list_display  = ('key', 'subject', 'is_active', 'updated_at')
+    list_editable = ('is_active',)
+    ordering      = ('key',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('key', 'is_active'),
+        }),
+        (_('Content'), {
+            'fields': ('subject', 'body'),
+            'description': _(
+                'Available variables: '
+                '{{ reference }}, {{ guest_name }}, {{ guest_email }}, '
+                '{{ room_name }}, {{ check_in }}, {{ check_out }}, '
+                '{{ nights }}, {{ guests }}, {{ total_price }}, '
+                '{{ price_per_night }}, {{ special_requests }}, '
+                '{{ date }}, {{ time_slot }}, {{ service }}'
+            ),
+        }),
+        (_('Last Updated'), {
+            'fields': ('updated_at',),
+            'classes': ('collapse',),
+        }),
+    )
+
+    readonly_fields = ('updated_at',)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        # Make body textarea taller
+        form.base_fields['body'].widget.attrs.update({
+            'rows': 22,
+            'style': 'font-family: monospace; font-size: 0.85rem;',
+        })
+        form.base_fields['subject'].widget.attrs.update({
+            'style': 'font-family: monospace; font-size: 0.85rem;',
+        })
+        return form

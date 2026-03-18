@@ -307,5 +307,60 @@ class RoomBooking(models.Model):
             self.total_price = self.price_per_night * self.nights
         super().save(*args, **kwargs)
 
+class EmailTemplate(models.Model):
+
+    class TemplateKey(models.TextChoices):
+        ROOM_CONFIRMATION   = 'room_confirmation',   _('Room Booking Confirmation')
+        TABLE_CONFIRMATION  = 'table_confirmation',  _('Table Booking Confirmation')
+
+    key = models.CharField(
+        _('Template'),
+        max_length=50,
+        choices=TemplateKey.choices,
+        unique=True
+    )
+    subject = models.CharField(
+        _('Subject'),
+        max_length=200,
+        help_text=_('Available variables: {{ reference }}, {{ guest_name }}, {{ room_name }}, {{ check_in }}, {{ check_out }}, {{ nights }}, {{ guests }}, {{ total_price }}, {{ date }}, {{ time_slot }}, {{ service }}')
+    )
+    body = models.TextField(
+        _('Body'),
+        help_text=_('Plain text email body. Same variables as subject are available.')
+    )
+    is_active = models.BooleanField(
+        _('Active'),
+        default=True,
+        help_text=_('If inactive, the default file template will be used instead.')
+    )
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name        = _('Email Template')
+        verbose_name_plural = _('Email Templates')
+
+    def __str__(self):
+        return self.get_key_display()
+
+    @classmethod
+    def get(cls, key):
+        """
+        Returns the active EmailTemplate for the given key,
+        or None if not found / inactive.
+        """
+        try:
+            return cls.objects.get(key=key, is_active=True)
+        except cls.DoesNotExist:
+            return None
+
+    def render_subject(self, context):
+        from django.template import Template, Context
+        return Template(self.subject).render(Context(context)).strip()
+
+    def render_body(self, context):
+        from django.template import Template, Context
+        return Template(self.body).render(Context(context))
+
 
         

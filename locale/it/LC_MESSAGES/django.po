@@ -1260,3 +1260,27 @@ msgstr "Sabato"
 
 msgid "Sunday"
 msgstr "Domenica"
+
+msgid "Email Template"
+msgstr "Template Email"
+
+msgid "Email Templates"
+msgstr "Template Email"
+
+msgid "Room Booking Confirmation"
+msgstr "Conferma Prenotazione Camera"
+
+msgid "Table Booking Confirmation"
+msgstr "Conferma Prenotazione Tavolo"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "If inactive, the default file template will be used instead."
+msgstr "Se inattivo, verrà utilizzato il template predefinito da file."
+
+msgid "Body"
+msgstr "Corpo"
+
+msgid "Plain text email body. Same variables as subject are available."
+msgstr "Corpo email in testo semplice. Sono disponibili le stesse variabili del soggetto."
