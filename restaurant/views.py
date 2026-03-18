@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MenuItem, MenuCategory
+from .models import MenuItem, MenuCategory, RestaurantSettings
 
 
 def menu(request):
@@ -17,10 +17,12 @@ def menu(request):
 
     featured_items  = items.filter(is_featured=True)[:4]
     signature_items = items.filter(is_signature=True)[:3]
+    settings        = RestaurantSettings.get()
 
     context = {
         'menu_sections':   menu_sections,
         'featured_items':  featured_items,
         'signature_items': signature_items,
+        'rs':              settings,      
     }
     return render(request, 'restaurant/menu.html', context)

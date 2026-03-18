@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% load static i18n %}
-
+{% load static i18n restaurant_tags %}
 {% block title %}{% trans "Restaurant" %} — Hotel Santa Filomena{% endblock %}
 {% block meta_description %}{% trans "Discover the cuisine of Ristorante Santa Filomena. Two Michelin stars, seasonal Italian countryside cooking." %}{% endblock %}
 
@@ -224,19 +223,42 @@
     </p>
 
     <div class="reservation-strip__hours">
-      <div class="reservation-strip__hour">
-        <span class="reservation-strip__hour-label">{% trans "Lunch" %}</span>
-        <span class="reservation-strip__hour-time">12:30 — 14:30</span>
-      </div>
-      <div class="reservation-strip__hour">
-        <span class="reservation-strip__hour-label">{% trans "Dinner" %}</span>
-        <span class="reservation-strip__hour-time">19:30 — 22:30</span>
-      </div>
-      <div class="reservation-strip__hour">
-        <span class="reservation-strip__hour-label">{% trans "Closed" %}</span>
-        <span class="reservation-strip__hour-time">{% trans "Monday" %}</span>
-      </div>
+
+      {% if rs.lunch_enabled %}
+        <div class="reservation-strip__hour">
+          <span class="reservation-strip__hour-label">{% trans "Lunch" %}</span>
+          <span class="reservation-strip__hour-time">
+            {{ rs.lunch_open|fmt_time }} — {{ rs.lunch_close|fmt_time }}
+          </span>
+        </div>
+      {% endif %}
+
+      {% if rs.dinner_enabled %}
+        <div class="reservation-strip__hour">
+          <span class="reservation-strip__hour-label">{% trans "Dinner" %}</span>
+          <span class="reservation-strip__hour-time">
+            {{ rs.dinner_open|fmt_time }} — {{ rs.dinner_close|fmt_time }}
+          </span>
+        </div>
+      {% endif %}
+
+      {% if rs.closed_days %}
+        <div class="reservation-strip__hour">
+          <span class="reservation-strip__hour-label">{% trans "Closed" %}</span>
+          <span class="reservation-strip__hour-time">
+            {{ rs.closed_days|join:", " }}
+          </span>
+        </div>
+      {% endif %}
+
     </div>
+
+    {% if rs.closed_note %}
+      <p style="font-size:0.78rem; color:rgba(255,255,255,0.4);
+                margin-bottom:2rem; letter-spacing:0.05em;">
+        {{ rs.closed_note }}
+      </p>
+    {% endif %}
 
     <div class="reservation-strip__buttons">
       <a href="{% url 'bookings:book_table' %}" class="btn btn-gold">

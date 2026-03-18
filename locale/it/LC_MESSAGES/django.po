@@ -1194,3 +1194,69 @@ msgstr "Sala Privata"
 
 msgid "photos"
 msgstr "foto"
+
+msgid "Restaurant Settings"
+msgstr "Impostazioni Ristorante"
+
+msgid "Lunch Opening Time"
+msgstr "Orario Apertura Pranzo"
+
+msgid "Lunch Closing Time"
+msgstr "Orario Chiusura Pranzo"
+
+msgid "Lunch Service Active"
+msgstr "Servizio Pranzo Attivo"
+
+msgid "Dinner Opening Time"
+msgstr "Orario Apertura Cena"
+
+msgid "Dinner Closing Time"
+msgstr "Orario Chiusura Cena"
+
+msgid "Dinner Service Active"
+msgstr "Servizio Cena Attivo"
+
+msgid "Closed Monday"
+msgstr "Chiuso Lunedì"
+
+msgid "Closed Tuesday"
+msgstr "Chiuso Martedì"
+
+msgid "Closed Wednesday"
+msgstr "Chiuso Mercoledì"
+
+msgid "Closed Thursday"
+msgstr "Chiuso Giovedì"
+
+msgid "Closed Friday"
+msgstr "Chiuso Venerdì"
+
+msgid "Closed Saturday"
+msgstr "Chiuso Sabato"
+
+msgid "Closed Sunday"
+msgstr "Chiuso Domenica"
+
+msgid "Closing Note"
+msgstr "Nota di Chiusura"
+
+msgid "Optional note shown under hours, e.g. \"Closed in August\""
+msgstr "Nota opzionale mostrata sotto gli orari, es. \"Chiuso ad Agosto\""
+
+msgid "Tuesday"
+msgstr "Martedì"
+
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+msgid "Thursday"
+msgstr "Giovedì"
+
+msgid "Friday"
+msgstr "Venerdì"
+
+msgid "Saturday"
+msgstr "Sabato"
+
+msgid "Sunday"
+msgstr "Domenica"

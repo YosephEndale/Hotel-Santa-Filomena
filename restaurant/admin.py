@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.utils.html import format_html
-from .models import MenuItem, MenuCategory
-
+from .models import MenuItem, MenuCategory, RestaurantSettings
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
@@ -86,3 +85,46 @@ class MenuItemAdmin(admin.ModelAdmin):
             )
         return _('No photo uploaded yet')
     photo_preview_detail.short_description = _('Preview')
+
+
+@admin.register(RestaurantSettings)
+class RestaurantSettingsAdmin(admin.ModelAdmin):
+
+    fieldsets = (
+        (_('Lunch Service'), {
+            'fields': ('lunch_enabled', 'lunch_open', 'lunch_close'),
+        }),
+        (_('Dinner Service'), {
+            'fields': ('dinner_enabled', 'dinner_open', 'dinner_close'),
+        }),
+        (_('Closed Days'), {
+            'fields': (
+                'closed_monday',
+                'closed_tuesday',
+                'closed_wednesday',
+                'closed_thursday',
+                'closed_friday',
+                'closed_saturday',
+                'closed_sunday',
+            ),
+        }),
+        (_('Extra Note'), {
+            'fields': ('closed_note',),
+        }),
+    )
+
+    # ── Prevent adding more than one row ──────────────────
+    def has_add_permission(self, request):
+        return not RestaurantSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    # ── Go straight to the settings row ──────────────────
+    def changelist_view(self, request, extra_context=None):
+        obj, _ = RestaurantSettings.objects.get_or_create(pk=1)
+        from django.shortcuts import redirect
+        from django.urls import reverse
+        return redirect(
+            reverse('admin:restaurant_restaurantsettings_change', args=[obj.pk])
+        )
